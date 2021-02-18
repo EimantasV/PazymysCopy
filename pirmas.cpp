@@ -55,7 +55,7 @@ int main()
     double *medianos = new double[1000000];
     double *egzai = new double [1000000];
 
-    double *medianaCalcArr = new double[100000];
+    double *medianaCalcArr = new double[100000]; // 1 zmogaus pazymiai skaiciuojant mediana
 
     bool irasymoMode = true;
     bool mediana = false;
@@ -318,7 +318,12 @@ int main()
     
     
     
-    
+    delete [] vardas;
+    delete [] pavarde;
+    delete [] pazymiuSum;
+    delete [] medianos;
+    delete [] egzai;
+    delete [] medianaCalcArr;
     //end
     system("pause");
     return 0;
