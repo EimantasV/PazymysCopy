@@ -1,5 +1,6 @@
 #include<iostream>
 #include<iomanip>
+#include<algorithm>
 
 using namespace std;
 
@@ -133,6 +134,7 @@ int main()
                 }
                 if(mediana)
                 {
+                    sort(medianaCalcArr, medianaCalcArr+n);
                     if(n%2==1)
                     {
                         medianos[i] = medianaCalcArr[n/2];
@@ -204,6 +206,7 @@ int main()
                 }
                 if(mediana)
                 {
+                    sort(medianaCalcArr, medianaCalcArr+n);
                     if(a%2==1)
                     {
                         medianos[i] = medianaCalcArr[a/2];
@@ -257,6 +260,7 @@ int main()
             egzai[i] =rand()%10+1;
             if(mediana)
             {
+                sort(medianaCalcArr, medianaCalcArr+n);
                 if(n%2==1)
                 {
                     medianos[i] = medianaCalcArr[n/2];

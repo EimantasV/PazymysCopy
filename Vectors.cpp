@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -146,6 +147,7 @@ int main()
                 }
                 if (mediana)
                 {
+                    sort(medianaCalcArr.begin(),medianaCalcArr.end());
                     if (n % 2 == 1)
                     {
                         medianos.push_back(medianaCalcArr[n / 2]);
@@ -229,6 +231,7 @@ int main()
                 }
                 if (mediana)
                 {
+                    sort(medianaCalcArr.begin(),medianaCalcArr.end());
                     if (a % 2 == 1)
                     {
                         medianos.push_back(medianaCalcArr[a / 2]);
@@ -294,6 +297,7 @@ int main()
             egzai.push_back(rand() % 10 + 1);
             if (mediana)
             {
+                sort(medianaCalcArr.begin(),medianaCalcArr.end());
                 if (n % 2 == 1)
                 {
                     medianos.push_back(medianaCalcArr[n / 2]);
