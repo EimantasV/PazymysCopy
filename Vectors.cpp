@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
-
+#include <exception>
 #include "Strukturos.h"
 #include "Funkcijos.h"
 
@@ -84,7 +84,15 @@ int main()
         std::string failoName;
         std::cout << "Failo pavadinimas: ";
         std::cin >> failoName;
+        
         std::ifstream input(failoName);
+        try{
+            if(input.fail()) throw "Nepavyko atidaryti failo"; 
+        }catch(const char * e){
+            std::cerr << e << std::endl;
+            exit(EXIT_FAILURE);
+        }
+
         std::ofstream output("result.txt");
 
         File_Read(studentai,input,m,n);
@@ -96,6 +104,8 @@ int main()
         {
             output << std::setw(15) << std::left << studentai[i].vardas << std::setw(15) << std::left << studentai[i].pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].pazymiuSum) + 0.6 * studentai[i].egzai << 0.4 * (studentai[i].medianos) + 0.6 * studentai[i].egzai << std::endl;
         }
+        input.close();
+        output.close();
         system("pause");
         return 0;
     }

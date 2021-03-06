@@ -25,6 +25,7 @@ Duomenų pavyzdys: data.txt.<br>
 v0.3:<br>
 Programa išskirstyta i kelis failus:<br>
 Funkcijos.cpp, Funkcijos.h, Strukturos.h, Vectors.cpp.<br>
+Pridėtas 'exception handling' prie failų nuskaitymo.<br>
 Programos paleidimas atnaujintas:<br>
 -----------------<br>
 Windows10:<br>

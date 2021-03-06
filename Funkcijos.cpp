@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <exception>
 #include "Strukturos.h"
 
 void NuskaitytiNM(int &n, int &m)
@@ -63,20 +64,21 @@ double GautiMediana(std::vector<double> &medianaCalcArr)
 void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, int n)
 {
     std::vector<double> medianaCalcArr;
+    Studentas tempStudentas;
     for (int i = 0; i < m; i++)
     {
-        studentai.push_back(Studentas());
+        //studentai.push_back(Studentas());
         std::string tempS;
 
         std::cout << "Iveskite varda: ";
         std::cin >> tempS;
-        studentai[i].vardas = tempS;
+        tempStudentas.vardas = tempS;
 
         std::cout << "Iveskite pavarde: ";
         std::cin >> tempS;
-        studentai[i].pavarde = tempS;
+        tempStudentas.pavarde = tempS;
 
-        studentai[i].pazymiuSum = 0;
+        tempStudentas.pazymiuSum = 0;
         //pazymiuSum[i] = 0;
 
         medianaCalcArr.clear();
@@ -99,7 +101,7 @@ void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, i
                 a--;
                 continue;
             }
-            studentai[i].pazymiuSum += temp;
+            tempStudentas.pazymiuSum += temp;
 
             if (mediana)
             {
@@ -108,7 +110,7 @@ void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, i
         }
         if (mediana)
         {
-            studentai[i].medianos = GautiMediana(medianaCalcArr);
+            tempStudentas.medianos = GautiMediana(medianaCalcArr);
         }
         while (true)
         {
@@ -130,9 +132,10 @@ void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, i
                 continue;
             }
 
-            studentai[i].egzai = temp;
+            tempStudentas.egzai = temp;
             break;
         }
+        studentai.push_back(tempStudentas);
     }
 }
 
@@ -254,35 +257,56 @@ void Console_Random(std::vector<Studentas> &studentai, bool mediana, int m, int 
 void File_Read(std::vector<Studentas> &studentai, std::ifstream &input, int &m, int n)
 {
     std::string temp;
-    for (int i = 0; i < 1000; i++) //1000 nd limit
-    {
-        input >> temp;
-        if (temp == "Egz." || temp == "Egzaminas")
+
+        for (int i = 0; i < 1000; i++) //1000 nd limit
         {
-            n = i - 2;
-            break;
+
+            input >> temp;
+
+            if (temp == "Egz." || temp == "Egzaminas")
+            {
+                n = i - 2;
+                break;
+            }
+            if(i==999)
+            {
+                try{
+                    throw "per daug nd (>=1000) arba nerastas 'Egz.' 'Egzaminas'";
+                }
+                catch(const char *e)
+                {
+                    std::cerr << e << std::endl;
+                    exit(EXIT_FAILURE);
+                }
+            }
+        }
+
+    try{
+        std::vector<double> medianaCalcArr;
+        for (m = 0; !input.eof(); m++) // m - mokyniai global
+        {
+            studentai.push_back(Studentas());
+            input >> studentai[m].vardas;
+            input >> studentai[m].pavarde;
+            int tempNd;
+
+            studentai[m].pazymiuSum = 0;
+            medianaCalcArr.clear();
+            for (int a = 0; a < n; a++)
+            {
+                input >> tempNd;
+                studentai[m].pazymiuSum += tempNd;
+                medianaCalcArr.push_back(tempNd);
+            }
+            studentai[m].pazymiuSum /= n;
+            input >> studentai[m].egzai;
+
+            studentai[m].medianos = GautiMediana(medianaCalcArr);
         }
     }
-
-    std::vector<double> medianaCalcArr;
-    for (m = 0; !input.eof(); m++) // m - mokyniai global
+    catch(std::exception &e)
     {
-        studentai.push_back(Studentas());
-        input >> studentai[m].vardas;
-        input >> studentai[m].pavarde;
-        int tempNd;
-
-        studentai[m].pazymiuSum = 0;
-        medianaCalcArr.clear();
-        for (int a = 0; a < n; a++)
-        {
-            input >> tempNd;
-            studentai[m].pazymiuSum += tempNd;
-            medianaCalcArr.push_back(tempNd);
-        }
-        studentai[m].pazymiuSum /= n;
-        input >> studentai[m].egzai;
-
-        studentai[m].medianos = GautiMediana(medianaCalcArr);
+        std::cout << e.what() <<std::endl;
+        exit(EXIT_FAILURE);
     }
 }
