@@ -27,7 +27,7 @@ Programa išskirstyta i kelis failus:<br>
 Funkcijos.cpp, Funkcijos.h, Strukturos.h, Vectors.cpp.<br>
 Programos paleidimas atnaujintas:<br>
 -----------------<br>
-windows10:<br>
+Windows10:<br>
 'mingw32-make compile'<br>
 './main' arba 'main'<br>
 -----------------<br>
