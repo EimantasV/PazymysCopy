@@ -31,6 +31,6 @@ windows10:<br>
 'mingw32-make compile'<br>
 './main' arba 'main'<br>
 -----------------<br>
-kitos OS neišbandytos.<br>
+kitoms OS paleidimas neišbandytas.<br>
 
     
