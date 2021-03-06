@@ -12,13 +12,25 @@ g++ -o main Vectors.cpp<br>
 --------------<br>
 Naudojimas:<br>
 Atsakyti į klausymus su 'y' arba 'n'.<br>
-Rasyti mokinių vardus, pavardes ir jų pažymius.<br>
+Rašyti mokinių vardus, pavardes ir jų pažymius.<br>
 Tada programa išveda galutinius pažymius.<br>
 <br>
 <br>
 v0.2:<br>
-C_Masyvai.cpp nebeatnaujinamas.<br>
+C_Masyvai.cpp nebe atnaujinamas.<br>
 Vectros.cpp dabar papildomai gali nuskaityti duomenis iš failo.<br>
 Duomenų pavyzdys: data.txt.<br>
+<br>
+<br>
+v0.3:<br>
+Programa išskirstyta i kelis failus:<br>
+Funkcijos.cpp, Funkcijos.h, Strukturos.h, Vectors.cpp.<br>
+Programos paleidimas atnaujintas:<br>
+-----------------<br>
+windows10:<br>
+'mingw32-make compile'<br>
+'./main' arba 'main'<br>
+-----------------<br>
+kitos OS neišbandytos.<br>
 
     
