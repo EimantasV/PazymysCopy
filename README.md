@@ -33,5 +33,7 @@ Windows10:<br>
 './main' arba 'main'<br>
 -----------------<br>
 kitoms OS paleidimas neišbandytas.<br>
-
+v0.4:<br>
+Programa gali sugeneruoti faila ir<br>
+išanalizuoti per kiek laiko atlieka užduotis<br>
     
