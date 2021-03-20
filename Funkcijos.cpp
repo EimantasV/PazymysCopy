@@ -5,6 +5,15 @@
 #include <exception>
 #include "Strukturos.h"
 
+bool SortByPazymys(Studentas stud1,Studentas stud2)
+{
+    return (0.4*stud1.pazymiuSum+0.6*stud1.egzai) > (0.4*stud2.pazymiuSum+0.6*stud2.egzai);
+}
+bool SortByVardas(Studentas stud1,Studentas stud2)
+{
+    return stud1.vardas < stud2.vardas;
+}
+
 void NuskaitytiNM(int &n, int &m)
 {
     std::cout << "Iveskite mokyniu sk.: ";
