@@ -23,6 +23,7 @@ int main()
     bool randomValues = false;
     bool isFailo = false;
     bool generuoti = false;
+    bool analizuoti = false;
 
     std::cout << "Ar sugeneruoti duomenis? (y/n): ";
     std::string generuotiS;
@@ -34,8 +35,7 @@ int main()
 
     if(generuoti)
     {
-
-                
+         
         std::cout << "Kiek studentu sugeneruoti? (1-n):";
         std::cin >> m;
         if (std::cin.fail())
@@ -80,19 +80,46 @@ int main()
         auto clock_now =  std::chrono::system_clock::now();
         float currentTime = float( std::chrono::duration_cast < std::chrono::microseconds> (clock_now - clock_start).count());
         std::cout << "Failas sugeneruotas per: " << currentTime /1000000 << " S \n";
+    }
+
+    std::cout << "Ar analizuoti duomenis? (y/n): ";
+    std::string analizuotiS;
+    std::cin >> analizuotiS;
+    if (analizuotiS == "y")
+    {
+        analizuoti = true;
+    }
+
+    if(analizuoti){
+        std::string fileName;
+        std::cout << "Failo pavadinimas: ";
+        std::cin >> fileName;
+
+        //timer, failo sukurimas
+        auto clock_startTotal = std::chrono::system_clock::now();
+        auto clock_start = std::chrono::system_clock::now();
 
         //failo nuskaitymas
         clock_start = std::chrono::system_clock::now();
-        std::ifstream input("Studentai"+std::to_string(m)+".txt");
+        std::ifstream input(fileName);
+        try{
+        if(input.fail()) throw "Nepavyko atidaryti failo"; 
+        }catch(const char * e){
+            std::cerr << e << std::endl;
+            exit(EXIT_FAILURE);
+        }
+
         File_Read(studentai,input,m,n);
         input.close();
-        clock_now =  std::chrono::system_clock::now();
-        currentTime = float( std::chrono::duration_cast < std::chrono::microseconds> (clock_now - clock_start).count());
+
+        auto clock_now =  std::chrono::system_clock::now();
+        float currentTime = float( std::chrono::duration_cast < std::chrono::microseconds> (clock_now - clock_start).count());
         std::cout << "Failas nuskaitytas per: " << currentTime /1000000 << " S \n";
 
         //failo rikiavimas
         clock_start = std::chrono::system_clock::now();
         sort(studentai.begin(), studentai.end(),SortByPazymys);
+
         clock_now =  std::chrono::system_clock::now();
         currentTime = float( std::chrono::duration_cast < std::chrono::microseconds> (clock_now - clock_start).count());
         std::cout << "Studentai surikuoti pagal rezultatus per: " << currentTime /1000000 << " S \n";
@@ -108,13 +135,14 @@ int main()
                 break;
             }
         }
+
         clock_now =  std::chrono::system_clock::now();
         currentTime = float( std::chrono::duration_cast < std::chrono::microseconds> (clock_now - clock_start).count());
         std::cout << "Studentai atskirti pagal rezultatus per: " << currentTime /1000000 << " S \n";
 
         //studentu surasymas i failus
         clock_start = std::chrono::system_clock::now();
-        output.open("Vykeliai.txt");
+        std::ofstream output("Vykeliai.txt");
         output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
         output << "======================================================================================" << std::endl;
 
@@ -140,6 +168,10 @@ int main()
         clock_now =  std::chrono::system_clock::now();
         currentTime = float( std::chrono::duration_cast < std::chrono::microseconds> (clock_now - clock_start).count());
         std::cout << "Nevykeliai surasyti i faila per: " << currentTime /1000000 << " S \n";
+
+        clock_now =  std::chrono::system_clock::now();
+        currentTime = float( std::chrono::duration_cast < std::chrono::microseconds> (clock_now - clock_startTotal).count());
+        std::cout << "Uzduotis atlikta per: " << currentTime /1000000 << " S \n";
 
     }
     else//negeneruoti
