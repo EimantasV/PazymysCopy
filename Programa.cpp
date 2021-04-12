@@ -119,7 +119,7 @@ int main()
             }
             else if (kaNaudot == "3")
             {
-                //AnalizuotiDequeStrat1(studentaiDeque,vykeliaiDeque,nevykeliaiDeque);
+                AnalizuotiDequeStrat1(studentaiDeque,vykeliaiDeque,nevykeliaiDeque);
             }
             else
             {
@@ -134,15 +134,15 @@ int main()
             std::cin >> kaNaudot;
             if (kaNaudot == "1")
             {
-                //Analizuoti(studentai, m, n);
+                AnalizuotiVectorStrat2(studentai,nevykeliaiVec);
             }
             else if (kaNaudot == "2")
             {
-                //AnalizuotiList(studentaiList, m, n);
+                AnalizuotiListStrat2(studentaiList,nevykeliaiList);
             }
             else if (kaNaudot == "3")
             {
-                //AnalizuotiDeque(studentaiDeque, m, n);
+                AnalizuotiDequeStrat2(studentaiDeque,nevykeliaiDeque);
             }
             else
             {

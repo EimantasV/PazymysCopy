@@ -16,3 +16,7 @@ void AnalizuotiList(std::list<Studentas>& studentai, int &m, int &n);
 void AnalizuotiListStrat1(std::list<Studentas>& studentaiList,std::list<Studentas>& vykeliaiList,std::list<Studentas>& nevykeliaiList);
 void File_Read_Deque(std::deque<Studentas> &studentai, std::ifstream &input, int &m, int& n);
 void AnalizuotiDeque(std::deque<Studentas>& studentai, int &m, int &n);
+void AnalizuotiDequeStrat1(std::deque<Studentas>& studentaiDeque,std::deque<Studentas>& vykeliaiDeque,std::deque<Studentas>& nevykeliaiDeque);
+void AnalizuotiVectorStrat2(std::vector<Studentas>& studentai, std::vector<Studentas>& nevykeliaiVec);
+void AnalizuotiListStrat2(std::list<Studentas>& studentaiList,std::list<Studentas>& nevykeliaiList);
+void AnalizuotiDequeStrat2(std::deque<Studentas>& studentaiDeque,std::deque<Studentas>& nevykeliaiDeque);

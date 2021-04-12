@@ -498,6 +498,83 @@ void AnalizuotiVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studen
     currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
     std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
 }
+void AnalizuotiVectorStrat2(std::vector<Studentas>& studentai, std::vector<Studentas>& nevykeliaiVec)
+{
+    int m, n;
+    std::string fileName;
+    std::cout << "Failo pavadinimas: ";
+    std::cin >> fileName;
+
+    //timer, failo sukurimas
+    auto clock_startTotal = std::chrono::system_clock::now();
+    auto clock_start = std::chrono::system_clock::now();
+
+    //failo nuskaitymas
+    clock_start = std::chrono::system_clock::now();
+    std::ifstream input(fileName);
+    try
+    {
+        if (input.fail())
+            throw "Nepavyko atidaryti failo";
+    }
+    catch (const char *e)
+    {
+        std::cerr << e << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    File_Read(studentai, input, m, n);
+    input.close();
+    auto clock_now = std::chrono::system_clock::now();
+    float currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Failas nuskaitytas per: " << currentTime / 1000000 << " S \n";
+
+    //rusiavimas
+    clock_start = std::chrono::system_clock::now();
+
+    int countV = std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.galutinis<5;});
+    nevykeliaiVec.resize(countV);
+
+    std::copy_if (studentai.begin(), studentai.end(), nevykeliaiVec.begin(), [](Studentas x){return x.galutinis<5;});
+    studentai.erase(std::remove_if(studentai.begin(),studentai.end(),[](Studentas x){return x.galutinis<5;}),studentai.end());
+
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai atskirti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    std::ofstream output("Vykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (auto const& i : studentai)
+    {
+        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+    }
+
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Vykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    output.open("Nevykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (auto const& i : nevykeliaiVec)
+    {
+        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+    }
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Nevykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
+    std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
+}
 
 void File_Read_List(std::list<Studentas> &studentai, std::ifstream &input, int &m, int& n)
 {
@@ -731,6 +808,84 @@ void AnalizuotiListStrat1(std::list<Studentas>& studentaiList,std::list<Studenta
     std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
 }
 
+void AnalizuotiListStrat2(std::list<Studentas>& studentaiList,std::list<Studentas>& nevykeliaiList)
+{
+    int m, n;
+    std::string fileName;
+    std::cout << "Failo pavadinimas: ";
+    std::cin >> fileName;
+
+    //timer, failo sukurimas
+    auto clock_startTotal = std::chrono::system_clock::now();
+    auto clock_start = std::chrono::system_clock::now();
+
+    //failo nuskaitymas
+    clock_start = std::chrono::system_clock::now();
+    std::ifstream input(fileName);
+    try
+    {
+        if (input.fail())
+            throw "Nepavyko atidaryti failo";
+    }
+    catch (const char *e)
+    {
+        std::cerr << e << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    File_Read_List(studentaiList, input, m, n);
+    input.close();
+    auto clock_now = std::chrono::system_clock::now();
+    float currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Failas nuskaitytas per: " << currentTime / 1000000 << " S \n";
+
+    //rusiavimas
+    clock_start = std::chrono::system_clock::now();
+
+    int countV = std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.galutinis<5;});
+    nevykeliaiList.resize(countV);
+
+    std::copy_if (studentaiList.begin(), studentaiList.end(), nevykeliaiList.begin(), [](Studentas x){return x.galutinis<5;});
+    studentaiList.erase(std::remove_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.galutinis<5;}),studentaiList.end());
+
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai atskirti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    std::ofstream output("Vykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (auto const& i : studentaiList)
+    {
+        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+    }
+
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Vykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    output.open("Nevykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (auto const& i : nevykeliaiList)
+    {
+        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+    }
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Nevykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
+    std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
+}
+
 void File_Read_Deque(std::deque<Studentas> &studentai, std::ifstream &input, int &m, int& n)
 {
     m=0;
@@ -874,6 +1029,163 @@ void AnalizuotiDeque(std::deque<Studentas>& studentai, int &m, int &n)
     for (std::deque<Studentas>::iterator it = pirmasNevykes ; it != studentai.end(); it++)
     {
         output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+    }
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Nevykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
+    std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
+}
+
+void AnalizuotiDequeStrat1(std::deque<Studentas>& studentaiDeque,std::deque<Studentas>& vykeliaiDeque,std::deque<Studentas>& nevykeliaiDeque)
+{
+    int m, n;
+    std::string fileName;
+    std::cout << "Failo pavadinimas: ";
+    std::cin >> fileName;
+
+    //timer, failo sukurimas
+    auto clock_startTotal = std::chrono::system_clock::now();
+    auto clock_start = std::chrono::system_clock::now();
+
+    //failo nuskaitymas
+    clock_start = std::chrono::system_clock::now();
+    std::ifstream input(fileName);
+    try
+    {
+        if (input.fail())
+            throw "Nepavyko atidaryti failo";
+    }
+    catch (const char *e)
+    {
+        std::cerr << e << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    File_Read_Deque(studentaiDeque, input, m, n);
+    input.close();
+    auto clock_now = std::chrono::system_clock::now();
+    float currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Failas nuskaitytas per: " << currentTime / 1000000 << " S \n";
+
+    //rusiavimas
+    clock_start = std::chrono::system_clock::now();
+
+    int countV = std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.galutinis>=5;});
+    vykeliaiDeque.resize(countV);
+    nevykeliaiDeque.resize(m-countV);
+
+    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), vykeliaiDeque.begin(), [](Studentas x){return x.galutinis>=5;});
+    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), nevykeliaiDeque.begin(), [](Studentas x){return x.galutinis<5;});
+
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai atskirti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    std::ofstream output("Vykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (auto const& i : vykeliaiDeque)
+    {
+        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+    }
+
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Vykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    output.open("Nevykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (auto const& i : nevykeliaiDeque)
+    {
+        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+    }
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Nevykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
+    std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
+}
+void AnalizuotiDequeStrat2(std::deque<Studentas>& studentaiDeque,std::deque<Studentas>& nevykeliaiDeque)
+{
+    int m, n;
+    std::string fileName;
+    std::cout << "Failo pavadinimas: ";
+    std::cin >> fileName;
+
+    //timer, failo sukurimas
+    auto clock_startTotal = std::chrono::system_clock::now();
+    auto clock_start = std::chrono::system_clock::now();
+
+    //failo nuskaitymas
+    clock_start = std::chrono::system_clock::now();
+    std::ifstream input(fileName);
+    try
+    {
+        if (input.fail())
+            throw "Nepavyko atidaryti failo";
+    }
+    catch (const char *e)
+    {
+        std::cerr << e << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    File_Read_Deque(studentaiDeque, input, m, n);
+    input.close();
+    auto clock_now = std::chrono::system_clock::now();
+    float currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Failas nuskaitytas per: " << currentTime / 1000000 << " S \n";
+
+    //rusiavimas
+    clock_start = std::chrono::system_clock::now();
+
+
+    int countV = std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.galutinis<5;});
+    nevykeliaiDeque.resize(countV);
+
+    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), nevykeliaiDeque.begin(), [](Studentas x){return x.galutinis<5;});
+    studentaiDeque.erase(std::remove_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.galutinis<5;}),studentaiDeque.end());
+
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai atskirti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    std::ofstream output("Vykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (auto const& i : studentaiDeque)
+    {
+        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+    }
+
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Vykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    output.open("Nevykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (auto const& i : nevykeliaiDeque)
+    {
+        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
