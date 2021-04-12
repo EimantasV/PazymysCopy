@@ -1,6 +1,12 @@
 compile:
-	g++ -c Vectors.cpp
+	g++ -c Programa.cpp
 	g++ -c Funkcijos.cpp
-	g++ -o main Vectors.o Funkcijos.o
+	g++ -o main Programa.o Funkcijos.o
+
+compile3:
+	g++ -O3 -std=c++17 -c Programa.cpp
+	g++ -O3 -std=c++17 -c Funkcijos.cpp
+	g++ -O3 -std=c++17 -o main Programa.o Funkcijos.o
+
 delete:
-	del *.o *.exe
+	del *.o *.exe 3 Vykeliai.txt Nevykeliai.txt

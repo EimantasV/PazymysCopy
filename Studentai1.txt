@@ -1,0 +1,2 @@
+Vardas                   Pavarde                  ND1            ND2            ND3            ND4            ND5            Egz.
+Vardenis0                Pavardenis0              2              8              5              1              10             5

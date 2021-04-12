@@ -8,8 +8,4 @@ struct Studentas
     double pazymiuSum;
     double medianos;
     double egzai;
-    bool operator<(Studentas stud)
-    {
-        return vardas < stud.vardas;
-    }
 };

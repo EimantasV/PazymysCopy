@@ -3,7 +3,20 @@
 #include <algorithm>
 #include <fstream>
 #include <exception>
+#include <chrono>
+#include <iomanip>
+#include <list>
+#include <deque>
 #include "Strukturos.h"
+
+bool SortByPazymys(Studentas stud1, Studentas stud2)
+{
+    return (0.4 * stud1.pazymiuSum + 0.6 * stud1.egzai) > (0.4 * stud2.pazymiuSum + 0.6 * stud2.egzai);
+}
+bool SortByVardas(Studentas stud1, Studentas stud2)
+{
+    return stud1.vardas < stud2.vardas;
+}
 
 void NuskaitytiNM(int &n, int &m)
 {
@@ -258,55 +271,451 @@ void File_Read(std::vector<Studentas> &studentai, std::ifstream &input, int &m, 
 {
     std::string temp;
 
-        for (int i = 0; i < 1000; i++) //1000 nd limit
+    for (int i = 0; i < 1000; i++) //1000 nd limit
+    {
+
+        input >> temp;
+
+        if (temp == "Egz." || temp == "Egzaminas")
         {
-
-            input >> temp;
-
-            if (temp == "Egz." || temp == "Egzaminas")
+            n = i - 2;
+            break;
+        }
+        if (i == 999)
+        {
+            try
             {
-                n = i - 2;
-                break;
+                throw "per daug nd (>=1000) arba nerastas 'Egz.' 'Egzaminas'";
             }
-            if(i==999)
+            catch (const char *e)
             {
-                try{
-                    throw "per daug nd (>=1000) arba nerastas 'Egz.' 'Egzaminas'";
-                }
-                catch(const char *e)
-                {
-                    std::cerr << e << std::endl;
-                    exit(EXIT_FAILURE);
-                }
+                std::cerr << e << std::endl;
+                exit(EXIT_FAILURE);
             }
         }
+    }
 
-    try{
+    try
+    {
         std::vector<double> medianaCalcArr;
-        for (m = 0; !input.eof(); m++) // m - mokyniai global
+        Studentas studTemp;
+
+        while(!input.eof()) // m - mokyniai global
         {
-            studentai.push_back(Studentas());
-            input >> studentai[m].vardas;
-            input >> studentai[m].pavarde;
+            
+            input >> studTemp.vardas;
+            input >> studTemp.pavarde;
             int tempNd;
 
-            studentai[m].pazymiuSum = 0;
+            studTemp.pazymiuSum = 0;
             medianaCalcArr.clear();
             for (int a = 0; a < n; a++)
             {
                 input >> tempNd;
-                studentai[m].pazymiuSum += tempNd;
+                studTemp.pazymiuSum += tempNd;
                 medianaCalcArr.push_back(tempNd);
             }
-            studentai[m].pazymiuSum /= n;
-            input >> studentai[m].egzai;
+            studTemp.pazymiuSum /= n;
+            input >> studTemp.egzai;
 
-            studentai[m].medianos = GautiMediana(medianaCalcArr);
+            studTemp.medianos = GautiMediana(medianaCalcArr);
+
+            studentai.push_back(studTemp);
         }
     }
-    catch(std::exception &e)
+    catch (std::exception &e)
     {
-        std::cout << e.what() <<std::endl;
+        std::cout << e.what() << std::endl;
         exit(EXIT_FAILURE);
     }
+}
+
+void Analizuoti(std::vector<Studentas> studentai, int &m, int &n)
+{
+    std::string fileName;
+    std::cout << "Failo pavadinimas: ";
+    std::cin >> fileName;
+
+    //timer, failo sukurimas
+    auto clock_startTotal = std::chrono::system_clock::now();
+    auto clock_start = std::chrono::system_clock::now();
+
+    //failo nuskaitymas
+    clock_start = std::chrono::system_clock::now();
+    std::ifstream input(fileName);
+    try
+    {
+        if (input.fail())
+            throw "Nepavyko atidaryti failo";
+    }
+    catch (const char *e)
+    {
+        std::cerr << e << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    File_Read(studentai, input, m, n);
+    input.close();
+    auto clock_now = std::chrono::system_clock::now();
+    float currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Failas nuskaitytas per: " << currentTime / 1000000 << " S \n";
+
+    //failo rikiavimas
+    clock_start = std::chrono::system_clock::now();
+    sort(studentai.begin(), studentai.end(), SortByPazymys);
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai surikuoti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu atskirimas i dvi kategorijas Vykeliai ir Nevykeliai
+    clock_start = std::chrono::system_clock::now();
+    std::vector<Studentas>::iterator pirmasNevykes;
+
+    for (std::vector<Studentas>::iterator it = studentai.begin() ; it != studentai.end(); it++)
+    {
+        if ((0.4 * (*it).pazymiuSum + 0.6 * (*it).egzai) < 5.0)
+        {
+            pirmasNevykes = it;
+            break;
+        }
+    }
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai atskirti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    std::ofstream output("Vykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (std::vector<Studentas>::iterator it = studentai.begin() ; it != pirmasNevykes; it++)
+    {
+        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+    }
+
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Vykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    output.open("Nevykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (std::vector<Studentas>::iterator it = pirmasNevykes ; it != studentai.end(); it++)
+    {
+        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+    }
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Nevykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
+    std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
+}
+
+void File_Read_List(std::list<Studentas> &studentai, std::ifstream &input, int &m, int n)
+{
+    std::string temp;
+
+    for (int i = 0; i < 1000; i++) //1000 nd limit
+    {
+
+        input >> temp;
+
+        if (temp == "Egz." || temp == "Egzaminas")
+        {
+            n = i - 2;
+            break;
+        }
+        if (i == 999)
+        {
+            try
+            {
+                throw "per daug nd (>=1000) arba nerastas 'Egz.' 'Egzaminas'";
+            }
+            catch (const char *e)
+            {
+                std::cerr << e << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+    try
+    {
+        std::vector<double> medianaCalcArr;
+        Studentas studTemp;
+
+        while(!input.eof()) // m - mokyniai global
+        {
+            
+            input >> studTemp.vardas;
+            input >> studTemp.pavarde;
+            int tempNd;
+
+            studTemp.pazymiuSum = 0;
+            medianaCalcArr.clear();
+            for (int a = 0; a < n; a++)
+            {
+                input >> tempNd;
+                studTemp.pazymiuSum += tempNd;
+                medianaCalcArr.push_back(tempNd);
+            }
+            studTemp.pazymiuSum /= n;
+            input >> studTemp.egzai;
+
+            studTemp.medianos = GautiMediana(medianaCalcArr);
+
+            studentai.push_back(studTemp);
+        }
+    }
+    catch (std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+void AnalizuotiList(std::list<Studentas> studentai, int &m, int &n)
+{
+    std::string fileName;
+    std::cout << "Failo pavadinimas: ";
+    std::cin >> fileName;
+
+    //timer, failo sukurimas
+    auto clock_startTotal = std::chrono::system_clock::now();
+    auto clock_start = std::chrono::system_clock::now();
+
+    //failo nuskaitymas
+    clock_start = std::chrono::system_clock::now();
+    std::ifstream input(fileName);
+    try
+    {
+        if (input.fail())
+            throw "Nepavyko atidaryti failo";
+    }
+    catch (const char *e)
+    {
+        std::cerr << e << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    File_Read_List(studentai, input, m, n);
+    input.close();
+    auto clock_now = std::chrono::system_clock::now();
+    float currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Failas nuskaitytas per: " << currentTime / 1000000 << " S \n";
+
+    //failo rikiavimas
+    clock_start = std::chrono::system_clock::now();
+    studentai.sort(SortByPazymys);
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai surikuoti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu atskirimas i dvi kategorijas Vykeliai ir Nevykeliai
+    clock_start = std::chrono::system_clock::now();
+    std::list<Studentas>::iterator pirmasNevykes;
+
+    for (std::list<Studentas>::iterator it = studentai.begin() ; it != studentai.end(); it++)
+    {
+        if ((0.4 * (*it).pazymiuSum + 0.6 * (*it).egzai) < 5.0)
+        {
+            pirmasNevykes = it;
+            break;
+        }
+    }
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai atskirti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    std::ofstream output("Vykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (std::list<Studentas>::iterator it = studentai.begin() ; it != pirmasNevykes; it++)
+    {
+        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+    }
+
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Vykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    output.open("Nevykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (std::list<Studentas>::iterator it = pirmasNevykes ; it != studentai.end(); it++)
+    {
+        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+    }
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Nevykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
+    std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
+}
+
+void File_Read_Deque(std::deque<Studentas> &studentai, std::ifstream &input, int &m, int n)
+{
+    std::string temp;
+
+    for (int i = 0; i < 1000; i++) //1000 nd limit
+    {
+
+        input >> temp;
+
+        if (temp == "Egz." || temp == "Egzaminas")
+        {
+            n = i - 2;
+            break;
+        }
+        if (i == 999)
+        {
+            try
+            {
+                throw "per daug nd (>=1000) arba nerastas 'Egz.' 'Egzaminas'";
+            }
+            catch (const char *e)
+            {
+                std::cerr << e << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+    try
+    {
+        std::vector<double> medianaCalcArr;
+        Studentas studTemp;
+
+        while(!input.eof()) // m - mokyniai global
+        {
+            
+            input >> studTemp.vardas;
+            input >> studTemp.pavarde;
+            int tempNd;
+
+            studTemp.pazymiuSum = 0;
+            medianaCalcArr.clear();
+            for (int a = 0; a < n; a++)
+            {
+                input >> tempNd;
+                studTemp.pazymiuSum += tempNd;
+                medianaCalcArr.push_back(tempNd);
+            }
+            studTemp.pazymiuSum /= n;
+            input >> studTemp.egzai;
+
+            studTemp.medianos = GautiMediana(medianaCalcArr);
+
+            studentai.push_back(studTemp);
+        }
+    }
+    catch (std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+void AnalizuotiDeque(std::deque<Studentas> studentai, int &m, int &n)
+{
+    std::string fileName;
+    std::cout << "Failo pavadinimas: ";
+    std::cin >> fileName;
+
+    //timer, failo sukurimas
+    auto clock_startTotal = std::chrono::system_clock::now();
+    auto clock_start = std::chrono::system_clock::now();
+
+    //failo nuskaitymas
+    clock_start = std::chrono::system_clock::now();
+    std::ifstream input(fileName);
+    try
+    {
+        if (input.fail())
+            throw "Nepavyko atidaryti failo";
+    }
+    catch (const char *e)
+    {
+        std::cerr << e << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    File_Read_Deque(studentai, input, m, n);
+    input.close();
+    auto clock_now = std::chrono::system_clock::now();
+    float currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Failas nuskaitytas per: " << currentTime / 1000000 << " S \n";
+
+    //failo rikiavimas
+    clock_start = std::chrono::system_clock::now();
+    sort(studentai.begin(),studentai.end(), SortByPazymys);
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai surikuoti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu atskirimas i dvi kategorijas Vykeliai ir Nevykeliai
+    clock_start = std::chrono::system_clock::now();
+    std::deque<Studentas>::iterator pirmasNevykes;
+
+    for (std::deque<Studentas>::iterator it = studentai.begin() ; it != studentai.end(); it++)
+    {
+        if ((0.4 * (*it).pazymiuSum + 0.6 * (*it).egzai) < 5.0)
+        {
+            pirmasNevykes = it;
+            break;
+        }
+    }
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Studentai atskirti pagal rezultatus per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    std::ofstream output("Vykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (std::deque<Studentas>::iterator it = studentai.begin() ; it != pirmasNevykes; it++)
+    {
+        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+    }
+
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Vykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    //studentu surasymas i failus
+    clock_start = std::chrono::system_clock::now();
+    output.open("Nevykeliai.txt");
+    output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
+    output << "======================================================================================" << std::endl;
+    for (std::deque<Studentas>::iterator it = pirmasNevykes ; it != studentai.end(); it++)
+    {
+        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+    }
+    output.close();
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
+    std::cout << "Nevykeliai surasyti i faila per: " << currentTime / 1000000 << " S \n";
+
+    clock_now = std::chrono::system_clock::now();
+    currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
+    std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
 }
