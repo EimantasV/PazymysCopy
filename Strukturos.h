@@ -8,4 +8,5 @@ struct Studentas
     double pazymiuSum;
     double medianos;
     double egzai;
+    double galutinis;
 };
