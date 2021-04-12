@@ -228,3 +228,99 @@ Studentai atskirti pagal rezultatus per: 0 S<br>
 Vykeliai surasyti i faila per: 0.026006 S <br>
 Nevykeliai surasyti i faila per: 0.020004 S <br>
 Uzduotis atlikta per: 0.058012 S<br>
+<br>
+====================================<br>
+<br>
+====Vector strategija 1:<br>
+====1000000 studentų:<br>
+<br>
+memory: 215MB<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
+Naudoti vector(1), list(2), deque(3): 1<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.26474 S<br>
+Studentai atskirti pagal rezultatus per: 1.11125 S<br>
+Vykeliai surasyti i faila per: 18.1669 S<br>
+Nevykeliai surasyti i faila per: 12.1691 S<br>
+Uzduotis atlikta per: 38.714 S<br>
+<br>
+====================================<br>
+<br>
+====List strategija 1:<br>
+====1000000 studentų:<br>
+<br>
+memory: 250MB<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
+Naudoti vector(1), list(2), deque(3): 2<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.37775 S <br>
+Studentai atskirti pagal rezultatus per: 1.26528 S <br>
+Vykeliai surasyti i faila per: 18.2877 S <br>
+Nevykeliai surasyti i faila per: 12.4456 S <br>
+Uzduotis atlikta per: 39.3783 S<br>
+<br>
+====================================<br>
+<br>
+====Deque strategija 1:<br>
+====1000000 studentų:<br>
+<br>
+memory: 220MB<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
+Naudoti vector(1), list(2), deque(3): 3<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.32759 S <br>
+Studentai atskirti pagal rezultatus per: 1.08208 S <br>
+Vykeliai surasyti i faila per: 18.2804 S <br>
+Nevykeliai surasyti i faila per: 12.1402 S <br>
+Uzduotis atlikta per: 38.8303 S<br>
+<br>
+====================================<br>
+<br>
+====Vector strategija 2:<br>
+====1000000 studentų:<br>
+<br>
+memory: 150MB<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 2<br>
+Naudoti vector(1), list(2), deque(3): 1<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.34714 S <br>
+Studentai atskirti pagal rezultatus per: 0.98303 S <br>
+Vykeliai surasyti i faila per: 18.2821 S <br>
+Nevykeliai surasyti i faila per: 12.1224 S <br>
+Uzduotis atlikta per: 38.7346 S<br>
+<br>
+====================================<br>
+<br>
+====List strategija 2:<br>
+====1000000 studentų:<br>
+<br>
+memory: 140MB<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 2<br>
+Naudoti vector(1), list(2), deque(3): 2<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.34651 S <br>
+Studentai atskirti pagal rezultatus per: 1.11344 S <br>
+Vykeliai surasyti i faila per: 18.2201 S <br>
+Nevykeliai surasyti i faila per: 12.0904 S <br>
+Uzduotis atlikta per: 38.7705 S<br>
+<br>
+====================================<br>
+<br>
+====Deque strategija 2:<br>
+====1000000 studentų:<br>
+<br>
+memory: 125MB<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 2<br>
+Naudoti vector(1), list(2), deque(3): 3<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.21991 S <br>
+Studentai atskirti pagal rezultatus per: 1.05517 S <br>
+Vykeliai surasyti i faila per: 18.35 S <br>
+Nevykeliai surasyti i faila per: 12.1825 S <br>
+Uzduotis atlikta per: 38.8101 S<br>

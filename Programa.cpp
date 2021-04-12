@@ -11,8 +11,14 @@
 #include "Funkcijos.h"
 
 std::vector<Studentas> studentai;
+std::vector<Studentas> vykeliaiVec;
+std::vector<Studentas> nevykeliaiVec;
 std::list<Studentas> studentaiList;
+std::list<Studentas> vykeliaiList;
+std::list<Studentas> nevykeliaiList;
 std::deque<Studentas> studentaiDeque;
+std::deque<Studentas> vykeliaiDeque;
+std::deque<Studentas> nevykeliaiDeque;
 
 std::vector<double> medianaCalcArr;
 int m; // mokyniu sk,
@@ -94,22 +100,81 @@ int main()
 
     if (analizuoti)
     {
-        std::cout << "Naudoti vector(1), list(2), deque(3): ";
-        std::string kaNaudot;
-        std::cin >> kaNaudot;
-        if(kaNaudot=="1")
+
+        std::cout << "Naudoti strategija pirma(1), antra(2), mano sena(3): ";
+        std::string strat;
+        std::cin >> strat;
+        if (strat == "1")
         {
-            Analizuoti(studentai,m,n);
+            std::cout << "Naudoti vector(1), list(2), deque(3): ";
+            std::string kaNaudot;
+            std::cin >> kaNaudot;
+            if (kaNaudot == "1")
+            {
+                AnalizuotiVectorStrat1(studentai,vykeliaiVec,nevykeliaiVec);
+            }
+            else if (kaNaudot == "2")
+            {
+                AnalizuotiListStrat1(studentaiList,vykeliaiList,nevykeliaiList);
+            }
+            else if (kaNaudot == "3")
+            {
+                AnalizuotiDequeStrat1(studentaiDeque,vykeliaiDeque,nevykeliaiDeque);
+            }
+            else
+            {
+                std::cout << "Blogai pasirinkta.";
+                exit(1);
+            }
         }
-        else if(kaNaudot=="2")
+        else if (strat == "2")
         {
-            AnalizuotiList(studentaiList,m,n);
+            std::cout << "Naudoti vector(1), list(2), deque(3): ";
+            std::string kaNaudot;
+            std::cin >> kaNaudot;
+            if (kaNaudot == "1")
+            {
+                AnalizuotiVectorStrat2(studentai,nevykeliaiVec);
+            }
+            else if (kaNaudot == "2")
+            {
+                AnalizuotiListStrat2(studentaiList,nevykeliaiList);
+            }
+            else if (kaNaudot == "3")
+            {
+                AnalizuotiDequeStrat2(studentaiDeque,nevykeliaiDeque);
+            }
+            else
+            {
+                std::cout << "Blogai pasirinkta.";
+                exit(1);
+            }
         }
-        else if(kaNaudot=="3")
+        else if (strat == "3")
         {
-            AnalizuotiDeque(studentaiDeque,m,n);
+            std::cout << "Naudoti vector(1), list(2), deque(3): ";
+            std::string kaNaudot;
+            std::cin >> kaNaudot;
+            if (kaNaudot == "1")
+            {
+                Analizuoti(studentai, m, n);
+            }
+            else if (kaNaudot == "2")
+            {
+                AnalizuotiList(studentaiList, m, n);
+            }
+            else if (kaNaudot == "3")
+            {
+                AnalizuotiDeque(studentaiDeque, m, n);
+            }
+            else
+            {
+                std::cout << "Blogai pasirinkta.";
+                exit(1);
+            }
         }
-        else{
+        else
+        {
             std::cout << "Blogai pasirinkta.";
             exit(1);
         }
