@@ -11,11 +11,11 @@
 
 bool SortByPazymys(Studentas stud1, Studentas stud2)
 {
-    return (0.4 * stud1.pazymiuSum + 0.6 * stud1.egzai) > (0.4 * stud2.pazymiuSum + 0.6 * stud2.egzai);
+    return stud1.GetGalutinis() > stud2.GetGalutinis();
 }
 bool SortByVardas(Studentas stud1, Studentas stud2)
 {
-    return stud1.vardas < stud2.vardas;
+    return stud1.GetVardas() < stud2.GetVardas();
 }
 
 void NuskaitytiNM(int &n, int &m)
@@ -77,21 +77,26 @@ double GautiMediana(std::vector<double> &medianaCalcArr)
 void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, int n)
 {
     std::vector<double> medianaCalcArr;
-    Studentas tempStudentas;
+    
+        std::string vardasTemp;
+        std::string pavardeTemp;
+        double pazymiuSumTemp;
+        double egzasTemp;
+        double medianaTemp;
+        double galutinisTemp;
+
     for (int i = 0; i < m; i++)
     {
         //studentai.push_back(Studentas());
         std::string tempS;
 
         std::cout << "Iveskite varda: ";
-        std::cin >> tempS;
-        tempStudentas.vardas = tempS;
+        std::cin >> vardasTemp;
 
         std::cout << "Iveskite pavarde: ";
-        std::cin >> tempS;
-        tempStudentas.pavarde = tempS;
+        std::cin >> pavardeTemp;
 
-        tempStudentas.pazymiuSum = 0;
+        pazymiuSumTemp = 0;
         //pazymiuSum[i] = 0;
 
         medianaCalcArr.clear();
@@ -114,7 +119,7 @@ void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, i
                 a--;
                 continue;
             }
-            tempStudentas.pazymiuSum += temp;
+            pazymiuSumTemp += temp;
 
             if (mediana)
             {
@@ -123,7 +128,7 @@ void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, i
         }
         if (mediana)
         {
-            tempStudentas.medianos = GautiMediana(medianaCalcArr);
+            medianaTemp = GautiMediana(medianaCalcArr);
         }
         while (true)
         {
@@ -145,33 +150,42 @@ void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, i
                 continue;
             }
 
-            tempStudentas.egzai = temp;
+            egzasTemp = temp;
             break;
         }
-        studentai.push_back(tempStudentas);
+        Studentas tempStud(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp);
+        studentai.push_back(tempStud);
     }
 }
 
 void Console_NezinomasSk(std::vector<Studentas> &studentai, bool mediana, int &m, int n)
 {
     std::vector<double> medianaCalcArr;
+
+    std::string vardasTemp;
+    std::string pavardeTemp;
+    double pazymiuSumTemp;
+    double egzasTemp;
+    double medianaTemp;
+    double galutinisTemp;
+
+
     for (int i = 0; true; i++) // :D
     {
-        studentai.push_back(Studentas());
-        std::string tempS;
+        //studentai.push_back(Studentas());
+        //std::string tempS;
         std::cout << "Iveskite varda (parasykyte STOP, kad pereitumete prie rezultatu): ";
-        std::cin >> tempS; // vardas[i];
-        studentai[i].vardas = tempS;
-        if (studentai[i].vardas == "STOP")
+        std::cin >> vardasTemp; // vardas[i];
+        
+        if (vardasTemp == "STOP")
         {
             m = i;
             break;
         }
         std::cout << "Iveskite pavarde: ";
-        std::cin >> tempS; // pavarde[i];
-        studentai[i].pavarde = tempS;
+        std::cin >> pavardeTemp; // pavarde[i];
 
-        studentai[i].pazymiuSum = 0;
+        pazymiuSumTemp = 0;
         //pazymiuSum[i] = 0;
 
         medianaCalcArr.clear();
@@ -193,7 +207,7 @@ void Console_NezinomasSk(std::vector<Studentas> &studentai, bool mediana, int &m
                 std::cout << "Netinkamas pazymys. (skaicius nuo 1 iki 10), Pakartokite: ";
                 continue;
             }
-            studentai[i].pazymiuSum += temp;
+            pazymiuSumTemp += temp;
 
             if (mediana)
             {
@@ -202,9 +216,9 @@ void Console_NezinomasSk(std::vector<Studentas> &studentai, bool mediana, int &m
         }
         if (mediana)
         {
-            studentai[i].medianos = GautiMediana(medianaCalcArr);
+            medianaTemp = GautiMediana(medianaCalcArr);
         }
-        studentai[i].pazymiuSum /= a;
+        pazymiuSumTemp /= a;
 
         while (true)
         {
@@ -226,44 +240,54 @@ void Console_NezinomasSk(std::vector<Studentas> &studentai, bool mediana, int &m
                 std::cout << "Netinkamas pazymys. (skaicius nuo 1 iki 10), Pakartokite: ";
                 continue;
             }
-            studentai[i].egzai = temp;
+            egzasTemp = temp;
             break;
         }
+        studentai.push_back(Studentas(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp));
     }
 }
 
 void Console_Random(std::vector<Studentas> &studentai, bool mediana, int m, int n)
 {
     std::vector<double> medianaCalcArr;
+
+    std::string vardasTemp;
+    std::string pavardeTemp;
+    double pazymiuSumTemp;
+    double egzasTemp;
+    double medianaTemp;
+    double galutinisTemp;
+
     for (int i = 0; i < m; i++)
     {
-        studentai.push_back(Studentas());
-        std::string tempS;
+
 
         std::cout << "Iveskite varda: ";
-        std::cin >> tempS;
-        studentai[i].vardas = tempS;
+        std::cin >> vardasTemp;
+
 
         std::cout << "Iveskite pavarde: ";
-        std::cin >> tempS;
-        studentai[i].pavarde = tempS;
+        std::cin >> pavardeTemp;
 
-        studentai[i].pazymiuSum = 0;
+
+        pazymiuSumTemp = 0;
         medianaCalcArr.clear();
         for (int a = 0; a < n; a++)
         {
             int temp = rand() % 10 + 1;
-            studentai[i].pazymiuSum += temp;
+            pazymiuSumTemp += temp;
             if (mediana)
             {
                 medianaCalcArr.push_back(temp);
             }
         }
-        studentai[i].egzai = rand() % 10 + 1;
+        egzasTemp = rand() % 10 + 1;
         if (mediana)
         {
-            studentai[i].medianos = GautiMediana(medianaCalcArr);
+            medianaTemp = GautiMediana(medianaCalcArr);
         }
+
+        studentai.push_back(Studentas(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp));
     }
 }
 
@@ -298,31 +322,39 @@ void File_Read(std::vector<Studentas> &studentai, std::ifstream &input, int &m, 
     try
     {
         std::vector<double> medianaCalcArr;
-        Studentas studTemp;
+        
+        std::string vardasTemp;
+        std::string pavardeTemp;
+        double pazymiuSumTemp;
+        double egzasTemp;
+        double medianaTemp;
+        double galutinisTemp;
 
         while(!input.eof()) // m - mokyniai global
         {
             m++;
-            input >> studTemp.vardas;
-            input >> studTemp.pavarde;
+            input >> vardasTemp;
+            input >> pavardeTemp;
             int tempNd;
 
-            studTemp.pazymiuSum = 0;
+            pazymiuSumTemp = 0;
             medianaCalcArr.clear();
             for (int a = 0; a < n; a++)
             {
                 input >> tempNd;
-                studTemp.pazymiuSum += tempNd;
+                pazymiuSumTemp += tempNd;
                 medianaCalcArr.push_back(tempNd);
             }
-            studTemp.pazymiuSum /= n;
-            input >> studTemp.egzai;
+            pazymiuSumTemp /= n;
+            input >> egzasTemp;
 
-            studTemp.medianos = GautiMediana(medianaCalcArr);
+            medianaTemp = GautiMediana(medianaCalcArr);
 
-            studTemp.galutinis = (0.4 * studTemp.pazymiuSum + 0.6 * studTemp.egzai);
+            galutinisTemp = (0.4 * pazymiuSumTemp + 0.6 * egzasTemp);
 
-            studentai.push_back(studTemp);
+            
+                    Studentas tempStud(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp);
+        studentai.push_back(tempStud);
         }
     }
     catch (std::exception &e)
@@ -375,7 +407,7 @@ void Analizuoti(std::vector<Studentas>& studentai, int &m, int &n)
 
     for (std::vector<Studentas>::iterator it = studentai.begin() ; it != studentai.end(); it++)
     {
-        if ((0.4 * (*it).pazymiuSum + 0.6 * (*it).egzai) < 5.0)
+        if ((0.4 * (*it).GetPazymiuSum() + 0.6 * (*it).GetEgzas()) < 5.0)
         {
             pirmasNevykes = it;
             break;
@@ -393,7 +425,7 @@ void Analizuoti(std::vector<Studentas>& studentai, int &m, int &n)
     output << "======================================================================================" << std::endl;
     for (std::vector<Studentas>::iterator it = studentai.begin() ; it != pirmasNevykes; it++)
     {
-        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+        output << std::setw(25) << std::left << (*it).GetVardas() << std::setw(25) << std::left << (*it).GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).GetPazymiuSum()) + 0.6 * (*it).GetEgzas() << 0.4 * ((*it).GetMediana()) + 0.6 * (*it).GetEgzas() << std::endl;
     }
 
     output.close();
@@ -408,7 +440,7 @@ void Analizuoti(std::vector<Studentas>& studentai, int &m, int &n)
     output << "======================================================================================" << std::endl;
     for (std::vector<Studentas>::iterator it = pirmasNevykes ; it != studentai.end(); it++)
     {
-        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+        output << std::setw(25) << std::left << (*it).GetVardas() << std::setw(25) << std::left << (*it).GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).GetPazymiuSum()) + 0.6 * (*it).GetEgzas() << 0.4 * ((*it).GetMediana()) + 0.6 * (*it).GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
@@ -453,12 +485,12 @@ void AnalizuotiVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studen
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.galutinis>=5;});
+    int countV = std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.GetGalutinis()>=5;});
     vykeliaiVec.resize(countV);
     nevykeliaiVec.resize(m-countV);
 
-    std::copy_if (studentai.begin(), studentai.end(), vykeliaiVec.begin(), [](Studentas x){return x.galutinis>=5;});
-    std::copy_if (studentai.begin(), studentai.end(), nevykeliaiVec.begin(), [](Studentas x){return x.galutinis<5;});
+    std::copy_if (studentai.begin(), studentai.end(), vykeliaiVec.begin(), [](Studentas x){return x.GetGalutinis()>=5;});
+    std::copy_if (studentai.begin(), studentai.end(), nevykeliaiVec.begin(), [](Studentas x){return x.GetGalutinis()<5;});
 
 
     clock_now = std::chrono::system_clock::now();
@@ -472,7 +504,7 @@ void AnalizuotiVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studen
     output << "======================================================================================" << std::endl;
     for (std::vector<Studentas>::iterator it = vykeliaiVec.begin() ; it != vykeliaiVec.end(); it++)
     {
-        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << (*it).galutinis << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+        output << std::setw(25) << std::left << (*it).GetVardas() << std::setw(25) << std::left << (*it).GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << (*it).GetGalutinis() << 0.4 * ((*it).GetMediana()) + 0.6 * (*it).GetEgzas() << std::endl;
     }
 
     output.close();
@@ -487,7 +519,7 @@ void AnalizuotiVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studen
     output << "======================================================================================" << std::endl;
     for (std::vector<Studentas>::iterator it = nevykeliaiVec.begin() ; it != nevykeliaiVec.end(); it++)
     {
-        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << (*it).galutinis << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+        output << std::setw(25) << std::left << (*it).GetVardas() << std::setw(25) << std::left << (*it).GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << (*it).GetGalutinis() << 0.4 * ((*it).GetMediana()) + 0.6 * (*it).GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
@@ -531,11 +563,11 @@ void AnalizuotiVectorStrat2(std::vector<Studentas>& studentai, std::vector<Stude
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.galutinis<5;});
+    int countV = std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.GetGalutinis()<5;});
     nevykeliaiVec.resize(countV);
 
-    std::copy_if (studentai.begin(), studentai.end(), nevykeliaiVec.begin(), [](Studentas x){return x.galutinis<5;});
-    studentai.erase(std::remove_if(studentai.begin(),studentai.end(),[](Studentas x){return x.galutinis<5;}),studentai.end());
+    std::copy_if (studentai.begin(), studentai.end(), nevykeliaiVec.begin(), [](Studentas x){return x.GetGalutinis()<5;});
+    studentai.erase(std::remove_if(studentai.begin(),studentai.end(),[](Studentas x){return x.GetGalutinis()<5;}),studentai.end());
 
 
     clock_now = std::chrono::system_clock::now();
@@ -547,9 +579,9 @@ void AnalizuotiVectorStrat2(std::vector<Studentas>& studentai, std::vector<Stude
     std::ofstream output("Vykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : studentai)
+    for (auto & i : studentai)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
 
     output.close();
@@ -562,9 +594,9 @@ void AnalizuotiVectorStrat2(std::vector<Studentas>& studentai, std::vector<Stude
     output.open("Nevykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : nevykeliaiVec)
+    for (auto & i : nevykeliaiVec)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
@@ -608,30 +640,39 @@ void File_Read_List(std::list<Studentas> &studentai, std::ifstream &input, int &
     try
     {
         std::vector<double> medianaCalcArr;
-        Studentas studTemp;
+
+        std::string vardasTemp;
+        std::string pavardeTemp;
+        double pazymiuSumTemp;
+        double egzasTemp;
+        double medianaTemp;
+        double galutinisTemp;
 
         while(!input.eof()) // m - mokyniai global
         {
             m++;
-            
-            input >> studTemp.vardas;
-            input >> studTemp.pavarde;
+            input >> vardasTemp;
+            input >> pavardeTemp;
             int tempNd;
 
-            studTemp.pazymiuSum = 0;
+            pazymiuSumTemp = 0;
             medianaCalcArr.clear();
             for (int a = 0; a < n; a++)
             {
                 input >> tempNd;
-                studTemp.pazymiuSum += tempNd;
+                pazymiuSumTemp += tempNd;
                 medianaCalcArr.push_back(tempNd);
             }
-            studTemp.pazymiuSum /= n;
-            input >> studTemp.egzai;
+            pazymiuSumTemp /= n;
+            input >> egzasTemp;
 
-            studTemp.medianos = GautiMediana(medianaCalcArr);
-            studTemp.galutinis = (0.4 * studTemp.pazymiuSum + 0.6 * studTemp.egzai);
-            studentai.push_back(studTemp);
+            medianaTemp = GautiMediana(medianaCalcArr);
+
+            galutinisTemp = (0.4 * pazymiuSumTemp + 0.6 * egzasTemp);
+
+            
+                    Studentas tempStud(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp);
+        studentai.push_back(tempStud);
         }
     }
     catch (std::exception &e)
@@ -684,7 +725,7 @@ void AnalizuotiList(std::list<Studentas>& studentai, int &m, int &n)
 
     for (std::list<Studentas>::iterator it = studentai.begin() ; it != studentai.end(); it++)
     {
-        if ((0.4 * (*it).pazymiuSum + 0.6 * (*it).egzai) < 5.0)
+        if ((0.4 * (*it).GetPazymiuSum() + 0.6 * (*it).GetEgzas()) < 5.0)
         {
             pirmasNevykes = it;
             break;
@@ -702,7 +743,7 @@ void AnalizuotiList(std::list<Studentas>& studentai, int &m, int &n)
     output << "======================================================================================" << std::endl;
     for (std::list<Studentas>::iterator it = studentai.begin() ; it != pirmasNevykes; it++)
     {
-        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+        output << std::setw(25) << std::left << (*it).GetVardas() << std::setw(25) << std::left << (*it).GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).GetPazymiuSum()) + 0.6 * (*it).GetEgzas() << 0.4 * ((*it).GetMediana()) + 0.6 * (*it).GetEgzas() << std::endl;
     }
 
     output.close();
@@ -717,7 +758,7 @@ void AnalizuotiList(std::list<Studentas>& studentai, int &m, int &n)
     output << "======================================================================================" << std::endl;
     for (std::list<Studentas>::iterator it = pirmasNevykes ; it != studentai.end(); it++)
     {
-        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+        output << std::setw(25) << std::left << (*it).GetVardas() << std::setw(25) << std::left << (*it).GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).GetPazymiuSum()) + 0.6 * (*it).GetEgzas() << 0.4 * ((*it).GetMediana()) + 0.6 * (*it).GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
@@ -762,12 +803,12 @@ void AnalizuotiListStrat1(std::list<Studentas>& studentaiList,std::list<Studenta
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.galutinis>=5;});
+    int countV = std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.GetGalutinis()>=5;});
     vykeliaiList.resize(countV);
     nevykeliaiList.resize(m-countV);
 
-    std::copy_if (studentaiList.begin(), studentaiList.end(), vykeliaiList.begin(), [](Studentas x){return x.galutinis>=5;});
-    std::copy_if (studentaiList.begin(), studentaiList.end(), nevykeliaiList.begin(), [](Studentas x){return x.galutinis<5;});
+    std::copy_if (studentaiList.begin(), studentaiList.end(), vykeliaiList.begin(), [](Studentas x){return x.GetGalutinis()>=5;});
+    std::copy_if (studentaiList.begin(), studentaiList.end(), nevykeliaiList.begin(), [](Studentas x){return x.GetGalutinis()<5;});
 
 
     clock_now = std::chrono::system_clock::now();
@@ -779,9 +820,9 @@ void AnalizuotiListStrat1(std::list<Studentas>& studentaiList,std::list<Studenta
     std::ofstream output("Vykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : vykeliaiList)
+    for (auto & i : vykeliaiList)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
 
     output.close();
@@ -794,9 +835,9 @@ void AnalizuotiListStrat1(std::list<Studentas>& studentaiList,std::list<Studenta
     output.open("Nevykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : nevykeliaiList)
+    for (auto & i : nevykeliaiList)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
@@ -841,11 +882,11 @@ void AnalizuotiListStrat2(std::list<Studentas>& studentaiList,std::list<Studenta
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.galutinis<5;});
+    int countV = std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.GetGalutinis()<5;});
     nevykeliaiList.resize(countV);
 
-    std::copy_if (studentaiList.begin(), studentaiList.end(), nevykeliaiList.begin(), [](Studentas x){return x.galutinis<5;});
-    studentaiList.erase(std::remove_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.galutinis<5;}),studentaiList.end());
+    std::copy_if (studentaiList.begin(), studentaiList.end(), nevykeliaiList.begin(), [](Studentas x){return x.GetGalutinis()<5;});
+    studentaiList.erase(std::remove_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.GetGalutinis()<5;}),studentaiList.end());
 
 
     clock_now = std::chrono::system_clock::now();
@@ -857,9 +898,9 @@ void AnalizuotiListStrat2(std::list<Studentas>& studentaiList,std::list<Studenta
     std::ofstream output("Vykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : studentaiList)
+    for (auto & i : studentaiList)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
 
     output.close();
@@ -872,9 +913,9 @@ void AnalizuotiListStrat2(std::list<Studentas>& studentaiList,std::list<Studenta
     output.open("Nevykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : nevykeliaiList)
+    for (auto & i : nevykeliaiList)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
@@ -918,30 +959,39 @@ void File_Read_Deque(std::deque<Studentas> &studentai, std::ifstream &input, int
     try
     {
         std::vector<double> medianaCalcArr;
-        Studentas studTemp;
+
+        std::string vardasTemp;
+        std::string pavardeTemp;
+        double pazymiuSumTemp;
+        double egzasTemp;
+        double medianaTemp;
+        double galutinisTemp;
 
         while(!input.eof()) // m - mokyniai global
         {
             m++;
-
-            input >> studTemp.vardas;
-            input >> studTemp.pavarde;
+            input >> vardasTemp;
+            input >> pavardeTemp;
             int tempNd;
 
-            studTemp.pazymiuSum = 0;
+            pazymiuSumTemp = 0;
             medianaCalcArr.clear();
             for (int a = 0; a < n; a++)
             {
                 input >> tempNd;
-                studTemp.pazymiuSum += tempNd;
+                pazymiuSumTemp += tempNd;
                 medianaCalcArr.push_back(tempNd);
             }
-            studTemp.pazymiuSum /= n;
-            input >> studTemp.egzai;
+            pazymiuSumTemp /= n;
+            input >> egzasTemp;
 
-            studTemp.medianos = GautiMediana(medianaCalcArr);
-            studTemp.galutinis = (0.4 * studTemp.pazymiuSum + 0.6 * studTemp.egzai);
-            studentai.push_back(studTemp);
+            medianaTemp = GautiMediana(medianaCalcArr);
+
+            galutinisTemp = (0.4 * pazymiuSumTemp + 0.6 * egzasTemp);
+
+            
+                    Studentas tempStud(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp);
+        studentai.push_back(tempStud);
         }
     }
     catch (std::exception &e)
@@ -995,7 +1045,7 @@ void AnalizuotiDeque(std::deque<Studentas>& studentai, int &m, int &n)
 
     for (std::deque<Studentas>::iterator it = studentai.begin() ; it != studentai.end(); it++)
     {
-        if ((0.4 * (*it).pazymiuSum + 0.6 * (*it).egzai) < 5.0)
+        if ((0.4 * (*it).GetPazymiuSum() + 0.6 * (*it).GetEgzas()) < 5.0)
         {
             pirmasNevykes = it;
             break;
@@ -1013,7 +1063,7 @@ void AnalizuotiDeque(std::deque<Studentas>& studentai, int &m, int &n)
     output << "======================================================================================" << std::endl;
     for (std::deque<Studentas>::iterator it = studentai.begin() ; it != pirmasNevykes; it++)
     {
-        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+        output << std::setw(25) << std::left << (*it).GetVardas() << std::setw(25) << std::left << (*it).GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).GetPazymiuSum()) + 0.6 * (*it).GetEgzas() << 0.4 * ((*it).GetMediana()) + 0.6 * (*it).GetEgzas() << std::endl;
     }
 
     output.close();
@@ -1028,7 +1078,7 @@ void AnalizuotiDeque(std::deque<Studentas>& studentai, int &m, int &n)
     output << "======================================================================================" << std::endl;
     for (std::deque<Studentas>::iterator it = pirmasNevykes ; it != studentai.end(); it++)
     {
-        output << std::setw(25) << std::left << (*it).vardas << std::setw(25) << std::left << (*it).pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).pazymiuSum) + 0.6 * (*it).egzai << 0.4 * ((*it).medianos) + 0.6 * (*it).egzai << std::endl;
+        output << std::setw(25) << std::left << (*it).GetVardas() << std::setw(25) << std::left << (*it).GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * ((*it).GetPazymiuSum()) + 0.6 * (*it).GetEgzas() << 0.4 * ((*it).GetMediana()) + 0.6 * (*it).GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
@@ -1073,12 +1123,12 @@ void AnalizuotiDequeStrat1(std::deque<Studentas>& studentaiDeque,std::deque<Stud
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.galutinis>=5;});
+    int countV = std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.GetGalutinis()>=5;});
     vykeliaiDeque.resize(countV);
     nevykeliaiDeque.resize(m-countV);
 
-    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), vykeliaiDeque.begin(), [](Studentas x){return x.galutinis>=5;});
-    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), nevykeliaiDeque.begin(), [](Studentas x){return x.galutinis<5;});
+    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), vykeliaiDeque.begin(), [](Studentas x){return x.GetGalutinis()>=5;});
+    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), nevykeliaiDeque.begin(), [](Studentas x){return x.GetGalutinis()<5;});
 
 
     clock_now = std::chrono::system_clock::now();
@@ -1090,9 +1140,9 @@ void AnalizuotiDequeStrat1(std::deque<Studentas>& studentaiDeque,std::deque<Stud
     std::ofstream output("Vykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : vykeliaiDeque)
+    for (auto & i : vykeliaiDeque)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
 
     output.close();
@@ -1105,9 +1155,9 @@ void AnalizuotiDequeStrat1(std::deque<Studentas>& studentaiDeque,std::deque<Stud
     output.open("Nevykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : nevykeliaiDeque)
+    for (auto & i : nevykeliaiDeque)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
@@ -1152,11 +1202,11 @@ void AnalizuotiDequeStrat2(std::deque<Studentas>& studentaiDeque,std::deque<Stud
     clock_start = std::chrono::system_clock::now();
 
 
-    int countV = std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.galutinis<5;});
+    int countV = std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.GetGalutinis()<5;});
     nevykeliaiDeque.resize(countV);
 
-    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), nevykeliaiDeque.begin(), [](Studentas x){return x.galutinis<5;});
-    studentaiDeque.erase(std::remove_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.galutinis<5;}),studentaiDeque.end());
+    std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), nevykeliaiDeque.begin(), [](Studentas x){return x.GetGalutinis()<5;});
+    studentaiDeque.erase(std::remove_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.GetGalutinis()<5;}),studentaiDeque.end());
 
 
     clock_now = std::chrono::system_clock::now();
@@ -1168,9 +1218,9 @@ void AnalizuotiDequeStrat2(std::deque<Studentas>& studentaiDeque,std::deque<Stud
     std::ofstream output("Vykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : studentaiDeque)
+    for (auto & i : studentaiDeque)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
 
     output.close();
@@ -1183,9 +1233,9 @@ void AnalizuotiDequeStrat2(std::deque<Studentas>& studentaiDeque,std::deque<Stud
     output.open("Nevykeliai.txt");
     output << "Vardas                   Pavarde                  Galutinis(vid.)      Galutinis(med.)" << std::endl;
     output << "======================================================================================" << std::endl;
-    for (auto const& i : nevykeliaiDeque)
+    for (auto & i : nevykeliaiDeque)
     {
-        output << std::setw(25) << std::left << i.vardas << std::setw(25) << std::left << i.pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.galutinis << 0.4 * (i.medianos) + 0.6 * i.egzai << std::endl;
+        output << std::setw(25) << std::left << i.GetVardas() << std::setw(25) << std::left << i.GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << i.GetGalutinis() << 0.4 * (i.GetMediana()) + 0.6 * i.GetEgzas() << std::endl;
     }
     output.close();
     clock_now = std::chrono::system_clock::now();
