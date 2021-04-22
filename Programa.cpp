@@ -21,7 +21,7 @@ std::deque<Studentas> vykeliaiDeque;
 std::deque<Studentas> nevykeliaiDeque;
 
 std::vector<double> medianaCalcArr;
-int m; // mokyniu sk,
+int m; // mokiniu sk,
 int n; // nd, sk.
 
 int main()

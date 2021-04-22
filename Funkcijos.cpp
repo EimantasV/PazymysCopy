@@ -20,7 +20,7 @@ bool SortByVardas(Studentas stud1, Studentas stud2)
 
 void NuskaitytiNM(int &n, int &m)
 {
-    std::cout << "Iveskite mokyniu sk.: ";
+    std::cout << "Iveskite mokiniu sk.: ";
     while (true)
     {
 
@@ -330,7 +330,7 @@ void File_Read(std::vector<Studentas> &studentai, std::ifstream &input, int &m, 
         double medianaTemp;
         double galutinisTemp;
 
-        while(!input.eof()) // m - mokyniai global
+        while(!input.eof()) // m - mokiniai global
         {
             m++;
             input >> vardasTemp;
@@ -648,7 +648,7 @@ void File_Read_List(std::list<Studentas> &studentai, std::ifstream &input, int &
         double medianaTemp;
         double galutinisTemp;
 
-        while(!input.eof()) // m - mokyniai global
+        while(!input.eof()) // m - mokiniai global
         {
             m++;
             input >> vardasTemp;
@@ -967,7 +967,7 @@ void File_Read_Deque(std::deque<Studentas> &studentai, std::ifstream &input, int
         double medianaTemp;
         double galutinisTemp;
 
-        while(!input.eof()) // m - mokyniai global
+        while(!input.eof()) // m - mokiniai global
         {
             m++;
             input >> vardasTemp;
