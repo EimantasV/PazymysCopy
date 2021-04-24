@@ -333,3 +333,63 @@ Studentai atskirti pagal rezultatus per: 1.05517 S <br>
 Vykeliai surasyti i faila per: 18.35 S <br>
 Nevykeliai surasyti i faila per: 12.1825 S <br>
 Uzduotis atlikta per: 38.8101 S<br>
+<br>
+====================================<br>
+====Struct, vector, strat 1, 1mln stud.:<br>
+Uzduotis atlikta per: 38.714 S<br>
+<br>
+<br>
+====v1.1, klasės:<br>
+<br>
+====Vector strategija 1<br>
+====1mln studentų<br>
+====Be optimizacijų<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
+Naudoti vector(1), list(2), deque(3): 1<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.90365 S <br>
+Studentai atskirti pagal rezultatus per: 1.05724 S <br>
+Vykeliai surasyti i faila per: 18.5766 S <br>
+Nevykeliai surasyti i faila per: 12.4276 S <br>
+Uzduotis atlikta per: 39.9661 S<br>
+<br>
+====Vector strategija 1<br>
+====1mln studentų<br>
+====O1 optimizacija<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
+Naudoti vector(1), list(2), deque(3): 1<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.08459 S <br>
+Studentai atskirti pagal rezultatus per: 0.472646 S <br>
+Vykeliai surasyti i faila per: 18.2704 S <br>
+Nevykeliai surasyti i faila per: 12.1366 S <br>
+Uzduotis atlikta per: 37.965 S<br>
+<br>
+====Vector strategija 1<br>
+====1mln studentų<br>
+====O2 optimizacija<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
+Naudoti vector(1), list(2), deque(3): 1<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.07634 S <br>
+Studentai atskirti pagal rezultatus per: 0.465993 S <br>
+Vykeliai surasyti i faila per: 18.2803 S <br>
+Nevykeliai surasyti i faila per: 12.1552 S <br>
+Uzduotis atlikta per: 37.9808 S<br>
+<br>
+====Vector strategija 1<br>
+====1mln studentų<br>
+====O3 optimizacija<br>
+<br>
+Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
+Naudoti vector(1), list(2), deque(3): 1<br>
+Failo pavadinimas: Studentai1000000.txt<br>
+Failas nuskaitytas per: 7.08042 S <br>
+Studentai atskirti pagal rezultatus per: 0.473685 S <br>
+Vykeliai surasyti i faila per: 18.2577 S <br>
+Nevykeliai surasyti i faila per: 12.2 S <br>
+Uzduotis atlikta per: 38.0148 S<br>
+<br>
