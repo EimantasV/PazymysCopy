@@ -21,7 +21,7 @@ std::deque<Studentas> vykeliaiDeque;
 std::deque<Studentas> nevykeliaiDeque;
 
 std::vector<double> medianaCalcArr;
-int m; // mokyniu sk,
+int m; // mokiniu sk,
 int n; // nd, sk.
 
 int main()
@@ -265,7 +265,7 @@ int main()
             output << "==================================================================" << std::endl;
             for (int i = 0; i < m; i++)
             {
-                output << std::setw(15) << std::left << studentai[i].vardas << std::setw(15) << std::left << studentai[i].pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].pazymiuSum) + 0.6 * studentai[i].egzai << 0.4 * (studentai[i].medianos) + 0.6 * studentai[i].egzai << std::endl;
+                output << std::setw(15) << std::left << studentai[i].GetVardas() << std::setw(15) << std::left << studentai[i].GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].GetPazymiuSum()) + 0.6 * studentai[i].GetEgzas() << 0.4 * (studentai[i].GetMediana()) + 0.6 * studentai[i].GetEgzas() << std::endl;
             }
             input.close();
             output.close();
@@ -283,7 +283,7 @@ int main()
                 std::cout << "==================================================================" << std::endl;
                 for (int i = 0; i < m; i++)
                 {
-                    std::cout << std::setw(15) << std::left << studentai[i].vardas << std::setw(15) << std::left << studentai[i].pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].pazymiuSum / n) + 0.6 * studentai[i].egzai << 0.4 * (studentai[i].medianos) + 0.6 * studentai[i].egzai << std::endl;
+                    std::cout << std::setw(15) << std::left << studentai[i].GetVardas() << std::setw(15) << std::left << studentai[i].GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].GetPazymiuSum() / n) + 0.6 * studentai[i].GetEgzas() << 0.4 * (studentai[i].GetMediana()) + 0.6 * studentai[i].GetEgzas() << std::endl;
                 }
             }
             else
@@ -292,7 +292,7 @@ int main()
                 std::cout << "=============================================" << std::endl;
                 for (int i = 0; i < m; i++)
                 {
-                    std::cout << std::setw(15) << std::left << studentai[i].vardas << std::setw(15) << std::left << studentai[i].pavarde << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].pazymiuSum / n) + 0.6 * studentai[i].egzai << std::endl;
+                    std::cout << std::setw(15) << std::left << studentai[i].GetVardas() << std::setw(15) << std::left << studentai[i].GetPavarde() << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].GetPazymiuSum() / n) + 0.6 * studentai[i].GetEgzas() << std::endl;
                 }
             }
         }
@@ -304,7 +304,7 @@ int main()
                 std::cout << "==================================================================" << std::endl;
                 for (int i = 0; i < m; i++)
                 {
-                    std::cout << std::setw(15) << std::left << studentai[i].vardas << std::setw(15) << std::left << studentai[i].pavarde << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].pazymiuSum) + 0.6 * studentai[i].egzai << 0.4 * (studentai[i].medianos) + 0.6 * studentai[i].egzai << std::endl;
+                    std::cout << std::setw(15) << std::left << studentai[i].GetVardas() << std::setw(15) << std::left << studentai[i].GetPavarde() << std::setw(21) << std::left << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].GetPazymiuSum()) + 0.6 * studentai[i].GetEgzas() << 0.4 * (studentai[i].GetMediana()) + 0.6 * studentai[i].GetEgzas() << std::endl;
                 }
             }
             else
@@ -313,7 +313,7 @@ int main()
                 std::cout << "=============================================" << std::endl;
                 for (int i = 0; i < m; i++)
                 {
-                    std::cout << std::setw(15) << std::left << studentai[i].vardas << std::setw(15) << std::left << studentai[i].pavarde << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].pazymiuSum) + 0.6 * studentai[i].egzai << std::endl;
+                    std::cout << std::setw(15) << std::left << studentai[i].GetVardas() << std::setw(15) << std::left << studentai[i].GetPavarde() << std::fixed << std::setprecision(2) << 0.4 * (studentai[i].GetPazymiuSum()) + 0.6 * studentai[i].GetEgzas() << std::endl;
                 }
             }
         }
