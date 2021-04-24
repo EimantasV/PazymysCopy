@@ -37,6 +37,15 @@ v0.4:<br>
 Programa gali sugeneruoti faila ir<br>
 išanalizuoti per kiek laiko atlieka užduotis<br>
 <br>
+v0.5:<br>
+Galima pasirinkti kokią stuktūrą naudoti: vector, list, deque.<br>
+<br>
+v1.0:<br>
+Galima pasirinkti užduoties atlikimo strategiją.<br>
+<br>
+v1.1:<br>
+Pereita iš struct i class.<br>
+<br>
 ====Atlikimas:<br>
 <br>
 ====1000 studentų:<br>
