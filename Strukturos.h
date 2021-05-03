@@ -29,29 +29,44 @@ class Studentas
         egzai = _egzas;
         galutinis = _galut;
     }
-    std::string GetVardas()
+    std::string GetVardas() const
     {
         return vardas;
     }
-    std::string GetPavarde()
+    std::string GetPavarde() const
     {
         return pavarde;
     }
-    double GetPazymiuSum()
+    double GetPazymiuSum() const
     {
         return pazymiuSum;
     }
-    double GetMediana()
+    double GetMediana() const
     {
         return medianos;
     }
-    double GetEgzas()
+    double GetEgzas() const
     {
         return egzai;
     }
-    double GetGalutinis()
+    double GetGalutinis() const
     {
         return galutinis;
     }
+
+    Studentas (const Studentas& other) : vardas(other.GetVardas()), pavarde(other.GetPavarde()), medianos(other.GetMediana()), egzai(other.GetEgzas()) , galutinis(other.GetGalutinis()){}; // copy
+    
+    Studentas& operator=( const Studentas& other) // set
+    {
+        if(&other == this) return *this;
+
+        vardas = other.GetVardas();
+        pavarde = other.GetPavarde();
+        medianos = other.GetMediana();
+        egzai = other.GetEgzas();
+        galutinis = other.GetGalutinis();
+        return *this;
+    }
+    ~Studentas(){} // destroy
 
 };

@@ -46,6 +46,9 @@ Galima pasirinkti užduoties atlikimo strategiją.<br>
 v1.1:<br>
 Pereita iš struct i class.<br>
 <br>
+v1.2:<br>
+Klasėje pridėtas kopijavimo konstruktorius,<br>
+pridėjimo operatorius ir destruktorius.<br>
 ====Atlikimas:<br>
 <br>
 ====1000 studentų:<br>
