@@ -2,12 +2,29 @@
 
 #include<string>
 
-//struct Studentas
-class Studentas
-{
-    private:
+class Zmogus {
+protected:
     std::string vardas;
     std::string pavarde;
+    
+public:
+    virtual ~Zmogus() = 0;
+    std::string GetVardas() const { return vardas; }
+    std::string GetPavarde() const { return pavarde; }
+    void setVardas(std::string vardas) { Zmogus::vardas = vardas; }
+    void setPavarde(std::string pavarde) { Zmogus::pavarde = pavarde; }
+};
+
+inline Zmogus::~Zmogus() {
+}
+
+
+//struct Studentas
+class Studentas : public Zmogus
+{
+    private:
+    //std::string vardas;
+    //std::string pavarde;
     double pazymiuSum;
     double medianos;
     double egzai;
@@ -29,29 +46,44 @@ class Studentas
         egzai = _egzas;
         galutinis = _galut;
     }
-    std::string GetVardas()
+    std::string GetVardas() const
     {
         return vardas;
     }
-    std::string GetPavarde()
+    std::string GetPavarde() const
     {
         return pavarde;
     }
-    double GetPazymiuSum()
+    double GetPazymiuSum() const
     {
         return pazymiuSum;
     }
-    double GetMediana()
+    double GetMediana() const
     {
         return medianos;
     }
-    double GetEgzas()
+    double GetEgzas() const
     {
         return egzai;
     }
-    double GetGalutinis()
+    double GetGalutinis() const
     {
         return galutinis;
     }
+
+    Studentas (const Studentas& other) :  medianos(other.GetMediana()), egzai(other.GetEgzas()) , galutinis(other.GetGalutinis()){vardas = other.GetVardas();pavarde= other.GetPavarde();}; // copy
+    
+    Studentas& operator=( const Studentas& other) // set
+    {
+        if(&other == this) return *this;
+
+        vardas = other.GetVardas();
+        pavarde = other.GetPavarde();
+        medianos = other.GetMediana();
+        egzai = other.GetEgzas();
+        galutinis = other.GetGalutinis();
+        return *this;
+    }
+    ~Studentas(){} // destroy
 
 };

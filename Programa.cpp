@@ -26,7 +26,6 @@ int n; // nd, sk.
 
 int main()
 {
-
     bool irasymoMode = true;
     bool mediana = false;
     bool randomValues = false;
