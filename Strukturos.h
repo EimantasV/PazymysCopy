@@ -11,8 +11,8 @@ public:
     virtual ~Zmogus() = 0;
     std::string GetVardas() const { return vardas; }
     std::string GetPavarde() const { return pavarde; }
-    void setVardas(std::string vardas) { Zmogus::vardas = vardas; }
-    void setPavarde(std::string pavarde) { Zmogus::pavarde = pavarde; }
+    void setVardas(std::string _vardas) { Zmogus::vardas = _vardas; }
+    void setPavarde(std::string _pavarde) { Zmogus::pavarde = _pavarde; }
 };
 
 inline Zmogus::~Zmogus() {

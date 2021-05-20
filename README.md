@@ -51,6 +51,31 @@ Klasėje pridėtas kopijavimo konstruktorius,<br>
 pridėjimo operatorius ir destruktorius.<br>
 v1.5<br>
 Pridėta abstrakti klase žmogus (Zmogus) ir sudentas ją paveldi.<br>
+v2.0<br>
+Galima atlikti unit testus.<br>
+instrukcija:<br>
+aplanke 'testai' galima sukurti testą pagal pavizdį.<br>
+terminale irasyti:
+```
+git clone https://github.com/google/googletest.git
+cd googletest        
+mkdir build
+```
+tada atverti failą googletest/googletest/CMakeLists.txt<br>
+ten irasyti: <br>
+```<br>
+if(build-testus)<br>
+cxx_executable(mediana_unittest ../../testai gtest_main)<br>
+endif()<br>
+```<br>
+ir pridėti naują eilutę if'e: <br>
+<br>
+cxx_executable('failo pavadinimas' ../../testai gtest_main)<br>
+<br>
+Tada su terminalu nueit i '/googletest/build'<br>
+ir parasyti komanda: "cmake .. -DBUILD_GMOCK=OFF -Dgtest_build_samples=OFF -Dbuild-testus=ON"<br>
+Tada per VS Studio atidaryti: "/googletest/build/googletest/gtest.sln"<br>
+ir ten paleisti testą(us).<br><br><br>
 ====Atlikimas:<br>
 <br>
 ====1000 studentų:<br>

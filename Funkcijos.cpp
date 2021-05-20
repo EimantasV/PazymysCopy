@@ -62,7 +62,7 @@ void NuskaitytiNM(int &n, int &m)
 
 double GautiMediana(std::vector<double> &medianaCalcArr)
 {
-    int n = medianaCalcArr.size();
+    int n = (int)medianaCalcArr.size();
     sort(medianaCalcArr.begin(), medianaCalcArr.end());
     if (n % 2 == 1)
     {
@@ -130,6 +130,9 @@ void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, i
         {
             medianaTemp = GautiMediana(medianaCalcArr);
         }
+        else {
+            medianaTemp = -1;
+        }
         while (true)
         {
             double temp;
@@ -153,12 +156,13 @@ void Console_ZinomasSk(std::vector<Studentas> &studentai, bool mediana, int m, i
             egzasTemp = temp;
             break;
         }
+        galutinisTemp = (0.4 * pazymiuSumTemp + 0.6 * egzasTemp);
         Studentas tempStud(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp);
         studentai.push_back(tempStud);
     }
 }
 
-void Console_NezinomasSk(std::vector<Studentas> &studentai, bool mediana, int &m, int n)
+void Console_NezinomasSk(std::vector<Studentas> &studentai, bool mediana, int &m)
 {
     std::vector<double> medianaCalcArr;
 
@@ -218,6 +222,9 @@ void Console_NezinomasSk(std::vector<Studentas> &studentai, bool mediana, int &m
         {
             medianaTemp = GautiMediana(medianaCalcArr);
         }
+        else {
+            medianaTemp = -1;
+        }
         pazymiuSumTemp /= a;
 
         while (true)
@@ -243,6 +250,7 @@ void Console_NezinomasSk(std::vector<Studentas> &studentai, bool mediana, int &m
             egzasTemp = temp;
             break;
         }
+        galutinisTemp = (0.4 * pazymiuSumTemp + 0.6 * egzasTemp);
         studentai.push_back(Studentas(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp));
     }
 }
@@ -286,7 +294,10 @@ void Console_Random(std::vector<Studentas> &studentai, bool mediana, int m, int 
         {
             medianaTemp = GautiMediana(medianaCalcArr);
         }
-
+        else {
+            medianaTemp = -1;
+        }
+        galutinisTemp = (0.4 * pazymiuSumTemp + 0.6 * egzasTemp);
         studentai.push_back(Studentas(vardasTemp,pavardeTemp,pazymiuSumTemp,medianaTemp,egzasTemp,galutinisTemp));
     }
 }
@@ -485,7 +496,7 @@ void AnalizuotiVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studen
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.GetGalutinis()>=5;});
+    int countV = (int)std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.GetGalutinis()>=5;});
     vykeliaiVec.resize(countV);
     nevykeliaiVec.resize(m-countV);
 
@@ -563,7 +574,7 @@ void AnalizuotiVectorStrat2(std::vector<Studentas>& studentai, std::vector<Stude
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.GetGalutinis()<5;});
+    int countV = (int)std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.GetGalutinis()<5;});
     nevykeliaiVec.resize(countV);
 
     std::copy_if (studentai.begin(), studentai.end(), nevykeliaiVec.begin(), [](Studentas x){return x.GetGalutinis()<5;});
@@ -803,7 +814,7 @@ void AnalizuotiListStrat1(std::list<Studentas>& studentaiList,std::list<Studenta
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.GetGalutinis()>=5;});
+    int countV = (int)std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.GetGalutinis()>=5;});
     vykeliaiList.resize(countV);
     nevykeliaiList.resize(m-countV);
 
@@ -882,7 +893,7 @@ void AnalizuotiListStrat2(std::list<Studentas>& studentaiList,std::list<Studenta
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.GetGalutinis()<5;});
+    int countV = (int)std::count_if(studentaiList.begin(),studentaiList.end(),[](Studentas x){return x.GetGalutinis()<5;});
     nevykeliaiList.resize(countV);
 
     std::copy_if (studentaiList.begin(), studentaiList.end(), nevykeliaiList.begin(), [](Studentas x){return x.GetGalutinis()<5;});
@@ -1123,7 +1134,7 @@ void AnalizuotiDequeStrat1(std::deque<Studentas>& studentaiDeque,std::deque<Stud
     //rusiavimas
     clock_start = std::chrono::system_clock::now();
 
-    int countV = std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.GetGalutinis()>=5;});
+    int countV = (int)std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.GetGalutinis()>=5;});
     vykeliaiDeque.resize(countV);
     nevykeliaiDeque.resize(m-countV);
 
@@ -1202,7 +1213,7 @@ void AnalizuotiDequeStrat2(std::deque<Studentas>& studentaiDeque,std::deque<Stud
     clock_start = std::chrono::system_clock::now();
 
 
-    int countV = std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.GetGalutinis()<5;});
+    int countV = (int)std::count_if(studentaiDeque.begin(),studentaiDeque.end(),[](Studentas x){return x.GetGalutinis()<5;});
     nevykeliaiDeque.resize(countV);
 
     std::copy_if (studentaiDeque.begin(), studentaiDeque.end(), nevykeliaiDeque.begin(), [](Studentas x){return x.GetGalutinis()<5;});
