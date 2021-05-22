@@ -52,6 +52,10 @@ pridėjimo operatorius ir destruktorius.<br>
 v1.5<br>
 Pridėta abstrakti klase žmogus (Zmogus) ir sudentas ją paveldi.<br>
 v2.0<br>
+doxygen - naudojau doxywizard gui, rezultatas yra /html aplanke.<br>
+<br>
+yra programos installer /Setup aplanke.<br>
+<br>
 Galima atlikti unit testus.<br>
 instrukcija:<br>
 aplanke 'testai' galima sukurti testą pagal pavizdį.<br>
@@ -73,8 +77,8 @@ ir pridėti naują eilutę if'e: <br>
 cxx_executable('failo pavadinimas' ../../testai gtest_main)<br>
 <br>
 Tada su terminalu nueit i '/googletest/build'<br>
-ir parasyti komanda: "cmake .. -DBUILD_GMOCK=OFF -Dgtest_build_samples=OFF -Dbuild-testus=ON"<br>
-Tada per VS Studio atidaryti: "/googletest/build/googletest/gtest.sln"<br>
+ir parašyti komandą: "cmake .. -DBUILD_GMOCK=OFF -Dgtest_build_samples=OFF -Dbuild-testus=ON"<br>
+Tada per Visual Studio atidaryti: "/googletest/build/googletest/gtest.sln"<br>
 ir ten paleisti testą(us).<br><br><br>
 ====Atlikimas:<br>
 <br>
