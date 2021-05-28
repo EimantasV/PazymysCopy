@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+//#include "Vector.h"
 #include <vector>
 #include <list>
 #include <deque>
@@ -32,6 +33,7 @@ int main()
     bool isFailo = false;
     bool generuoti = false;
     bool analizuoti = false;
+
 
     std::cout << "Ar sugeneruoti duomenis? (y/n): ";
     std::string generuotiS;
@@ -105,12 +107,12 @@ int main()
         std::cin >> strat;
         if (strat == "1")
         {
-            std::cout << "Naudoti vector(1), list(2), deque(3): ";
+            std::cout << "Naudoti Vector(1), list(2), deque(3): ";
             std::string kaNaudot;
             std::cin >> kaNaudot;
             if (kaNaudot == "1")
             {
-                AnalizuotiVectorStrat1(studentai,vykeliaiVec,nevykeliaiVec);
+                AnalizuotVectorStrat1(studentai,vykeliaiVec,nevykeliaiVec);
             }
             else if (kaNaudot == "2")
             {
@@ -128,12 +130,12 @@ int main()
         }
         else if (strat == "2")
         {
-            std::cout << "Naudoti vector(1), list(2), deque(3): ";
+            std::cout << "Naudoti Vector(1), list(2), deque(3): ";
             std::string kaNaudot;
             std::cin >> kaNaudot;
             if (kaNaudot == "1")
             {
-                AnalizuotiVectorStrat2(studentai,nevykeliaiVec);
+                AnalizuotVectorStrat2(studentai,nevykeliaiVec);
             }
             else if (kaNaudot == "2")
             {
@@ -151,7 +153,7 @@ int main()
         }
         else if (strat == "3")
         {
-            std::cout << "Naudoti vector(1), list(2), deque(3): ";
+            std::cout << "Naudoti Vector(1), list(2), deque(3): ";
             std::string kaNaudot;
             std::cin >> kaNaudot;
             if (kaNaudot == "1")
@@ -259,7 +261,7 @@ int main()
 
             File_Read(studentai, input, m, n);
 
-            sort(studentai.begin(), studentai.end(), SortByVardas);
+            std::sort(studentai.begin(), studentai.end(), SortByVardas);
             output << "Vardas         Pavarde        Galutinis(vid.)      Galutinis(med.)" << std::endl;
             output << "==================================================================" << std::endl;
             for (int i = 0; i < m; i++)

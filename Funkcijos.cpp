@@ -1,4 +1,5 @@
 #include <iostream>
+//#include "Vector.h"
 #include <vector>
 #include <algorithm>
 #include <fstream>
@@ -63,7 +64,7 @@ void NuskaitytiNM(int &n, int &m)
 double GautiMediana(std::vector<double> &medianaCalcArr)
 {
     int n = medianaCalcArr.size();
-    sort(medianaCalcArr.begin(), medianaCalcArr.end());
+    std::sort(medianaCalcArr.begin(), medianaCalcArr.end());
     if (n % 2 == 1)
     {
         return medianaCalcArr[n / 2];
@@ -395,7 +396,7 @@ void Analizuoti(std::vector<Studentas>& studentai, int &m, int &n)
 
     //failo rikiavimas
     clock_start = std::chrono::system_clock::now();
-    sort(studentai.begin(), studentai.end(), SortByPazymys);
+    std::sort(studentai.begin(), studentai.end(), SortByPazymys);
 
     clock_now = std::chrono::system_clock::now();
     currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
@@ -452,7 +453,7 @@ void Analizuoti(std::vector<Studentas>& studentai, int &m, int &n)
     std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
 }
 
-void AnalizuotiVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studentas>& vykeliaiVec,std::vector<Studentas>& nevykeliaiVec)
+void AnalizuotVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studentas>& vykeliaiVec,std::vector<Studentas>& nevykeliaiVec)
 {
     int m, n;
     std::string fileName;
@@ -486,12 +487,12 @@ void AnalizuotiVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studen
     clock_start = std::chrono::system_clock::now();
 
     int countV = std::count_if(studentai.begin(),studentai.end(),[](Studentas x){return x.GetGalutinis()>=5;});
+
     vykeliaiVec.resize(countV);
     nevykeliaiVec.resize(m-countV);
 
     std::copy_if (studentai.begin(), studentai.end(), vykeliaiVec.begin(), [](Studentas x){return x.GetGalutinis()>=5;});
     std::copy_if (studentai.begin(), studentai.end(), nevykeliaiVec.begin(), [](Studentas x){return x.GetGalutinis()<5;});
-
 
     clock_now = std::chrono::system_clock::now();
     currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_start).count());
@@ -530,7 +531,7 @@ void AnalizuotiVectorStrat1(std::vector<Studentas>& studentai,std::vector<Studen
     currentTime = float(std::chrono::duration_cast<std::chrono::microseconds>(clock_now - clock_startTotal).count());
     std::cout << "Uzduotis atlikta per: " << currentTime / 1000000 << " S \n";
 }
-void AnalizuotiVectorStrat2(std::vector<Studentas>& studentai, std::vector<Studentas>& nevykeliaiVec)
+void AnalizuotVectorStrat2(std::vector<Studentas>& studentai, std::vector<Studentas>& nevykeliaiVec)
 {
     int m, n;
     std::string fileName;

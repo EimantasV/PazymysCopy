@@ -38,7 +38,7 @@ Programa gali sugeneruoti faila ir<br>
 išanalizuoti per kiek laiko atlieka užduotis<br>
 <br>
 v0.5:<br>
-Galima pasirinkti kokią stuktūrą naudoti: vector, list, deque.<br>
+Galima pasirinkti kokią stuktūrą naudoti: Vector, list, deque.<br>
 <br>
 v1.0:<br>
 Galima pasirinkti užduoties atlikimo strategiją.<br>
@@ -102,7 +102,7 @@ Uzduotis atlikta per: 52.6679 S<br>
 <br>
 ====10000000 studentų:<br>
 std::bad_alloc<br>
-pas mane kažkodėl yra vector ~8700000 elementų limitas, nenaudoju indeksų<br>
+pas mane kažkodėl yra Vector ~8700000 elementų limitas, nenaudoju indeksų<br>
 <br>
 ==============================================================<br>
 ===== List =====<br>
@@ -112,7 +112,7 @@ cpu: ~16%<br>
 ram: 1.1GB<br>
 sdd: 2.4MB/s<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 2<br>
+Naudoti Vector(1), list(2), deque(3): 2<br>
 Failo pavadinimas: Studentai10000000.txt<br>
 Failas nuskaitytas per: 68.2924 S <br>
 Studentai surikuoti pagal rezultatus per: 56.3695 S <br>
@@ -129,7 +129,7 @@ cpu: ~13%<br>
 ram: 0.1GB<br>
 sdd: 2.4MB/s<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 2<br>
+Naudoti Vector(1), list(2), deque(3): 2<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 9.08936 S <br>
 Studentai surikuoti pagal rezultatus per: 4.09188 S <br>
@@ -153,7 +153,7 @@ Uzduotis atlikta per: 4.01712 S<br>
 <br>
 ====10000 studentų:<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 2<br>
+Naudoti Vector(1), list(2), deque(3): 2<br>
 Failo pavadinimas: Studentai10000.txt<br>
 Failas nuskaitytas per: 0.098013 S <br>
 Studentai surikuoti pagal rezultatus per: 0.005 S<br>
@@ -166,7 +166,7 @@ Uzduotis atlikta per: 0.423754 S<br>
 <br>
 ====1000 studentų:<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 2<br>
+Naudoti Vector(1), list(2), deque(3): 2<br>
 Failo pavadinimas: Studentai1000.txt<br>
 Failas nuskaitytas per: 0.011003 S <br>
 Studentai surikuoti pagal rezultatus per: 0.001 S<br>
@@ -182,7 +182,7 @@ cpu: ~16%<br>
 ram: 1.0GB<br>
 sdd: 2.4MB/s<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 3<br>
+Naudoti Vector(1), list(2), deque(3): 3<br>
 Failo pavadinimas: Studentai10000000.txt<br>
 Failas nuskaitytas per: 67.8647 S <br>
 Studentai surikuoti pagal rezultatus per: 56.2896 S <br>
@@ -195,7 +195,7 @@ Uzduotis atlikta per: 431.138 S<br>
 <br>
 ====1000000 studentų:<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 3<br>
+Naudoti Vector(1), list(2), deque(3): 3<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 9.29239 S <br>
 Studentai surikuoti pagal rezultatus per: 4.50965 S <br>
@@ -208,7 +208,7 @@ Uzduotis atlikta per: 44.6609 S<br>
 <br>
 ====100000 studentų:<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 3<br>
+Naudoti Vector(1), list(2), deque(3): 3<br>
 Failo pavadinimas: Studentai100000.txt<br>
 Failas nuskaitytas per: 0.906216 S <br>
 Studentai surikuoti pagal rezultatus per: 0.087018 S <br>
@@ -221,7 +221,7 @@ Uzduotis atlikta per: 4.07812 S<br>
 <br>
 ====10000 studentų:<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 3<br>
+Naudoti Vector(1), list(2), deque(3): 3<br>
 Failo pavadinimas: Studentai10000.txt
 Failas nuskaitytas per: 0.092022 S <br><br>
 Studentai surikuoti pagal rezultatus per: 0.007002 S<br>
@@ -234,7 +234,7 @@ Uzduotis atlikta per: 0.457867 S<br>
 <br>
 ====1000 studentų:<br>
 <br>
-Naudoti vector(1), list(2), deque(3): 3<br>
+Naudoti Vector(1), list(2), deque(3): 3<br>
 Failo pavadinimas: Studentai1000.txt<br>
 Failas nuskaitytas per: 0.010002 S <br>
 Studentai surikuoti pagal rezultatus per: 0 S<br>
@@ -251,7 +251,7 @@ Uzduotis atlikta per: 0.058012 S<br>
 memory: 215MB<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
-Naudoti vector(1), list(2), deque(3): 1<br>
+Naudoti Vector(1), list(2), deque(3): 1<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.26474 S<br>
 Studentai atskirti pagal rezultatus per: 1.11125 S<br>
@@ -267,7 +267,7 @@ Uzduotis atlikta per: 38.714 S<br>
 memory: 250MB<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
-Naudoti vector(1), list(2), deque(3): 2<br>
+Naudoti Vector(1), list(2), deque(3): 2<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.37775 S <br>
 Studentai atskirti pagal rezultatus per: 1.26528 S <br>
@@ -283,7 +283,7 @@ Uzduotis atlikta per: 39.3783 S<br>
 memory: 220MB<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
-Naudoti vector(1), list(2), deque(3): 3<br>
+Naudoti Vector(1), list(2), deque(3): 3<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.32759 S <br>
 Studentai atskirti pagal rezultatus per: 1.08208 S <br>
@@ -299,7 +299,7 @@ Uzduotis atlikta per: 38.8303 S<br>
 memory: 150MB<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 2<br>
-Naudoti vector(1), list(2), deque(3): 1<br>
+Naudoti Vector(1), list(2), deque(3): 1<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.34714 S <br>
 Studentai atskirti pagal rezultatus per: 0.98303 S <br>
@@ -315,7 +315,7 @@ Uzduotis atlikta per: 38.7346 S<br>
 memory: 140MB<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 2<br>
-Naudoti vector(1), list(2), deque(3): 2<br>
+Naudoti Vector(1), list(2), deque(3): 2<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.34651 S <br>
 Studentai atskirti pagal rezultatus per: 1.11344 S <br>
@@ -331,7 +331,7 @@ Uzduotis atlikta per: 38.7705 S<br>
 memory: 125MB<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 2<br>
-Naudoti vector(1), list(2), deque(3): 3<br>
+Naudoti Vector(1), list(2), deque(3): 3<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.21991 S <br>
 Studentai atskirti pagal rezultatus per: 1.05517 S <br>
@@ -340,7 +340,7 @@ Nevykeliai surasyti i faila per: 12.1825 S <br>
 Uzduotis atlikta per: 38.8101 S<br>
 <br>
 ====================================<br>
-====Struct, vector, strat 1, 1mln stud.:<br>
+====Struct, Vector, strat 1, 1mln stud.:<br>
 Uzduotis atlikta per: 38.714 S<br>
 <br>
 <br>
@@ -351,7 +351,7 @@ Uzduotis atlikta per: 38.714 S<br>
 ====Be optimizacijų<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
-Naudoti vector(1), list(2), deque(3): 1<br>
+Naudoti Vector(1), list(2), deque(3): 1<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.90365 S <br>
 Studentai atskirti pagal rezultatus per: 1.05724 S <br>
@@ -364,7 +364,7 @@ Uzduotis atlikta per: 39.9661 S<br>
 ====O1 optimizacija<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
-Naudoti vector(1), list(2), deque(3): 1<br>
+Naudoti Vector(1), list(2), deque(3): 1<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.08459 S <br>
 Studentai atskirti pagal rezultatus per: 0.472646 S <br>
@@ -377,7 +377,7 @@ Uzduotis atlikta per: 37.965 S<br>
 ====O2 optimizacija<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
-Naudoti vector(1), list(2), deque(3): 1<br>
+Naudoti Vector(1), list(2), deque(3): 1<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.07634 S <br>
 Studentai atskirti pagal rezultatus per: 0.465993 S <br>
@@ -390,7 +390,7 @@ Uzduotis atlikta per: 37.9808 S<br>
 ====O3 optimizacija<br>
 <br>
 Naudoti strategija pirma(1), antra(2), mano sena(3): 1<br>
-Naudoti vector(1), list(2), deque(3): 1<br>
+Naudoti Vector(1), list(2), deque(3): 1<br>
 Failo pavadinimas: Studentai1000000.txt<br>
 Failas nuskaitytas per: 7.08042 S <br>
 Studentai atskirti pagal rezultatus per: 0.473685 S <br>

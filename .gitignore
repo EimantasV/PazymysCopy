@@ -1,5 +1,7 @@
 # VSCode
 .vscode/
+.vs/
+googletest/
 *.exe
 *.o
 Vykeliai.txt
